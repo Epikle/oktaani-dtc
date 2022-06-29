@@ -1,0 +1,247 @@
+article {
+  height: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+  background: var(--color-primary-white);
+  min-width: 12rem;
+  padding: 0.5rem 0.75rem 0 0.75rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+article h3 {
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+article h3 abbr {
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: help;
+}
+
+article h3::first-letter {
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+article.p-code h3::first-letter {
+  color: var(--color-code-p);
+}
+
+article.c-code h3::first-letter {
+  color: var(--color-code-c);
+}
+
+article.b-code h3::first-letter {
+  color: var(--color-code-b);
+}
+
+article.u-code h3::first-letter {
+  color: var(--color-code-u);
+}
+
+article.e-code h3::first-letter {
+  color: var(--color-code-e);
+}
+
+article.loading-code h3 {
+  width: max-content;
+  color: transparent;
+  margin-bottom: 0.25rem;
+  user-select: none;
+  background-color: var(--color-header-input);
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
+  background-size: 400% 400%;
+  animation: loading 5s ease infinite;
+}
+
+article > div {
+  position: relative;
+}
+
+article.admin > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.25rem;
+}
+
+article.admin .control-code {
+  display: flex;
+  gap: 0.25rem;
+}
+
+article.admin .control-code button {
+  width: 1.75rem;
+  height: 1.75rem;
+  border: none;
+  background-color: transparent;
+  padding: 0.25rem;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+}
+
+article.admin .control-code button span {
+  font-size: 1rem;
+}
+
+article.admin .control-code button:hover {
+  cursor: pointer;
+  background-color: var(--color-primary-blue);
+}
+
+article.admin .control-code button.delete:hover {
+  cursor: pointer;
+  background-color: var(--color-code-u);
+}
+
+article > div::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+}
+
+article.p-code div::after {
+  background: var(--color-code-p);
+  background: linear-gradient(90deg, var(--color-code-p) 0%, #9381ff00 100%);
+}
+
+article.c-code div::after {
+  background: var(--color-code-c);
+  background: linear-gradient(90deg, var(--color-code-c) 0%, #db5eec00 100%);
+}
+
+article.b-code div::after {
+  background: var(--color-code-b);
+  background: linear-gradient(90deg, var(--color-code-b) 0%, #0f6b5900 100%);
+}
+
+article.u-code div::after {
+  background: var(--color-code-u);
+  background: linear-gradient(90deg, var(--color-code-u) 0%, #fd5c5600 100%);
+  height: 2px;
+  width: 100%;
+}
+
+article.e-code div::after {
+  background: var(--color-code-u);
+  background: linear-gradient(90deg, var(--color-code-e) 0%, #fd5c5600 100%);
+  height: 2px;
+  width: 100%;
+}
+
+article.loading-code div::after {
+  background: var(--color-code-u);
+  background: linear-gradient(90deg, var(--color-main-bg) 0%, #fd5c5600 100%);
+  height: 2px;
+  width: 100%;
+}
+
+article p {
+  flex: 1;
+  padding: 0.75rem 0;
+  font-family: var(--ff-code);
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+article.loading-code p {
+  margin: 0.25rem 0;
+  color: transparent;
+  user-select: none;
+  background-color: var(--color-header-input);
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
+  background-size: 400% 400%;
+  animation: loading 5s ease infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+article button.more-code {
+  font-size: 0.7rem;
+  padding: 0.5rem 0;
+  margin: 0 -0.75rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  transition: background-color 200ms ease;
+  border-top: 1px dotted var(--color-main-bg);
+}
+
+article.p-code button.more-code {
+  border-top: 1px dotted var(--color-code-p);
+}
+
+article.c-code button.more-code {
+  border-top: 1px dotted var(--color-code-c);
+}
+
+article.b-code button.more-code {
+  border-top: 1px dotted var(--color-code-b);
+}
+
+article.u-code button.more-code {
+  border-top: 1px dotted var(--color-code-u);
+}
+
+article.e-code button.more-code {
+  border-top: 1px dotted var(--color-code-e);
+}
+
+article button.more-code:hover,
+article button.more-code:focus-visible {
+  cursor: pointer;
+  outline: none;
+  border-top: 1px dotted var(--color-main-bg);
+}
+
+article.p-code button.more-code:hover,
+article.p-code button.more-code:focus-visible {
+  background-color: var(--color-code-p);
+}
+
+article.c-code button.more-code:hover,
+article.c-code button.more-code:focus-visible {
+  background-color: var(--color-code-c);
+}
+
+article.b-code button.more-code:hover,
+article.b-code button.more-code:focus-visible {
+  background-color: var(--color-code-b);
+}
+
+article.u-code button.more-code:hover,
+article.u-code button.more-code:focus-visible {
+  background-color: var(--color-code-u);
+}
+
+article.e-code button.more-code:hover,
+article.loading-code button.more-code:hover {
+  cursor: default;
+}

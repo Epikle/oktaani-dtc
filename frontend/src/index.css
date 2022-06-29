@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700;900&family=Source+Code+Pro&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+:root {
+  --color-primary-blue: #89cff0;
+  --color-primary-black: #1a1a1a;
+  --color-primary-white: #e6f4f1;
+
+  --color-header-input: #98afba;
+
+  --color-main-bg: #272727;
+
+  --color-code-p: #9381ff;
+  --color-code-c: #db5eec;
+  --color-code-b: #0f6b59;
+  --color-code-u: #fd5c56;
+  --color-code-e: #ac0600;
+
+  --ff-main: 'Roboto', sans-serif;
+  --ff-code: 'Source Code Pro', monospace;
+}
+
+body {
+  font-family: var(--ff-main);
+  color: var(--color-primary-black);
+  background-color: var(--color-main-bg);
+  overflow-y: overlay;
+}

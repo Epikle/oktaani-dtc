@@ -1,0 +1,9 @@
+.dtc-list {
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem;
+  width: 80%;
+  margin: 0 auto;
+  list-style: none;
+}

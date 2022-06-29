@@ -1,0 +1,237 @@
+header {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: var(--color-primary-black);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+header > div {
+  flex: 1 1 0px;
+}
+
+.logo {
+  height: 2rem;
+  user-select: none;
+}
+
+.dtc-search {
+  border-radius: 5px;
+  display: flex;
+  padding: 0.5rem;
+  background-color: var(--color-main-bg);
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.dtc-search label {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 0 0.5rem;
+  font-weight: bold;
+  background: var(--color-primary-blue);
+  cursor: pointer;
+  border-radius: 5px 0 0 5px;
+}
+
+.dtc-search-tooltip {
+  user-select: none;
+  cursor: default;
+  border-radius: 5px 0 5px 5px;
+  visibility: hidden;
+  opacity: 0;
+  background-color: var(--color-primary-white);
+  color: var(--color-primary-black);
+  text-align: center;
+  font-size: 0.65rem;
+  font-weight: normal;
+  padding: 0.5rem;
+  width: 120px;
+  top: 0;
+  right: 140%;
+  position: absolute;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+  transition: all 200ms ease;
+}
+
+.dtc-search-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -10px;
+  width: 10px;
+  height: 10px;
+  border-style: solid;
+  border-width: 10px 10px 0 0;
+  border-color: var(--color-primary-white) transparent transparent transparent;
+}
+
+.dtc-search label:hover .dtc-search-tooltip,
+.dtc-search:focus-within .dtc-search-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.dtc-search input {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  background-color: var(--color-header-input);
+  transition: background-color 200ms ease;
+  border-radius: 0 5px 5px 0;
+  text-transform: capitalize;
+}
+
+.dtc-search input:focus-visible {
+  outline: none;
+  background-color: var(--color-primary-white);
+}
+
+header > div:last-of-type {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 1rem;
+}
+
+.more {
+  border-radius: 5px 0 5px 5px;
+  padding: 0.75rem;
+  background-color: var(--color-primary-white);
+  position: relative;
+  width: fit-content;
+  font-size: 0.75rem;
+  cursor: pointer;
+  border: 1px solid var(--color-primary-white);
+  transition: background-color 200ms ease;
+}
+
+.more:hover {
+  background-color: var(--color-primary-blue);
+  border: 1px solid var(--color-primary-blue);
+}
+
+.more::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -10px;
+  width: 10px;
+  height: 10px;
+  border-style: solid;
+  border-width: 10px 10px 0 0;
+  border-color: var(--color-primary-white) transparent transparent transparent;
+  transition: all 200ms ease;
+}
+
+.more:hover::after {
+  border-color: var(--color-primary-blue) transparent transparent transparent;
+}
+
+.admin-controls {
+  display: flex;
+  gap: 1rem;
+  position: relative;
+}
+
+.admin-controls .btn {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--color-primary-white);
+  transition: background-color 200ms ease;
+}
+
+.admin-controls .btn:hover {
+  cursor: pointer;
+  background-color: var(--color-primary-blue);
+}
+
+.admin-user {
+  position: relative;
+}
+
+.admin-user-dropdown {
+  visibility: hidden;
+  width: 3rem;
+  display: grid;
+  justify-content: center;
+  gap: 0.5rem;
+  opacity: 0;
+  background-color: var(--color-primary-white);
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 100vw;
+  padding: 3.5rem 0 0.5rem 0;
+  z-index: -1;
+  transition: all 300ms ease;
+}
+
+.admin-user-dropdown .btn-drop {
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-code-u);
+  width: 2.25rem;
+  height: 2.25rem;
+  display: grid;
+  place-items: center;
+}
+
+.admin-user-dropdown .btn-drop:hover,
+.admin-user-dropdown .btn-drop:focus {
+  cursor: pointer;
+  background-color: var(--color-code-p);
+}
+
+.admin-user-dropdown .btn-drop span {
+  font-size: 1.25rem;
+}
+
+.admin-user .btn:hover ~ .admin-user-dropdown,
+.admin-user-dropdown:hover,
+.admin-user .btn:focus-visible ~ .admin-user-dropdown,
+.admin-user-dropdown:focus-within {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
+    transition: transform 250ms ease-in-out;
+  }
+
+  .hide {
+    transform: translateY(-100%);
+  }
+
+  .more {
+    display: none;
+  }
+
+  .dtc-search-tooltip {
+    top: 120%;
+    left: 50%;
+    border-radius: 0 5px 5px 5px;
+  }
+
+  .dtc-search-tooltip::after {
+    top: -15px;
+    left: 0;
+    border-width: 15px 0 0 15px;
+    border-color: transparent transparent transparent var(--color-primary-white);
+  }
+}
