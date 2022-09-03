@@ -74,7 +74,7 @@ const Header = (props) => {
               id="search"
               placeholder="Search for DTC's"
               onChange={searchHandler}
-              maxLength="23"
+              maxLength="29"
             />
           </form>
         </div>

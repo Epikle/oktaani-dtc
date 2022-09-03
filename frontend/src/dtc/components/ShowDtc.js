@@ -19,8 +19,9 @@ const ShowDtc = (props) => {
         responseData = await sendRequest(
           `${process.env.REACT_APP_BACKEND_URL}/dtc/${props.id}`
         );
-      } catch (error) {}
-      console.log('API LOADED: GET: /DTC/', props.id);
+      } catch (error) {
+        console.log(error);
+      }
       setLoadedDtc(responseData);
     };
 

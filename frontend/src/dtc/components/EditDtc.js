@@ -80,10 +80,11 @@ const EditDtc = (props) => {
           },
           true
         );
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     };
     if (props.showModal && !loadedDtc) {
-      console.log('API LOADED: GET: /DTC/', props.id);
       fetchDtc();
     }
   }, [sendRequest, props.id, setFormData, props.showModal, loadedDtc]);

@@ -19,8 +19,9 @@ const Dtcs = (props) => {
           `${process.env.REACT_APP_BACKEND_URL}/dtc`
         );
         setLoadedDtcs(responseData.dtcList);
-      } catch (error) {}
-      console.log('API LOADED: GET: /DTC/');
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     fetchDtcs();
