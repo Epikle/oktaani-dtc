@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import EditDtc from './EditDtc';
@@ -93,21 +93,21 @@ const DtcItem = ({ dtc, onDelete, setIsChanged, loading, error, notFound }) => {
     : `${dtc.code.title.charAt(0).toLowerCase()}-code`;
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Modal
         show={isDeleting}
         onCancel={toggleDeleteHandler}
         header="Are you sure?"
         footerClass="place-item__modal-actions"
         footer={
-          <React.Fragment>
+          <Fragment>
             <Button inverse onClick={toggleDeleteHandler} type="button">
               CANCEL
             </Button>
             <Button danger onClick={confirmDeleteHandler} type="button">
               DELETE
             </Button>
-          </React.Fragment>
+          </Fragment>
         }
       >
         <p>
@@ -153,7 +153,7 @@ const DtcItem = ({ dtc, onDelete, setIsChanged, loading, error, notFound }) => {
           </button>
         </article>
       </li>
-    </React.Fragment>
+    </Fragment>
   );
 };
 

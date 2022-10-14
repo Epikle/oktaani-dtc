@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Modal from '../../shared/components/UI/Modal';
@@ -89,7 +89,7 @@ const AddDtc = (props) => {
       header="Add new DTC"
       footerClass="place-item__modal-actions"
       footer={
-        <React.Fragment>
+        <Fragment>
           <Button inverse onClick={props.onCancel} type="button">
             CANCEL
           </Button>
@@ -101,7 +101,7 @@ const AddDtc = (props) => {
           >
             ADD NEW
           </Button>
-        </React.Fragment>
+        </Fragment>
       }
     >
       {error && <p>{error}</p>}

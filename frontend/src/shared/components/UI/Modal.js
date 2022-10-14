@@ -1,44 +1,46 @@
-import React from 'react';
+import { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 
 import './Modal.css';
 
-const Backdrop = (props) => {
+const Backdrop = ({ onClick }) => {
   return ReactDOM.createPortal(
-    <div className="backdrop" onClick={props.onClick}></div>,
+    <div className="backdrop" onClick={onClick}></div>,
     document.getElementById('backdrop-hook')
   );
 };
 
-const ModalOverlay = (props) => {
+const ModalOverlay = ({
+  className,
+  style,
+  headerClass,
+  header,
+  onSubmit,
+  contentClass,
+  footerClass,
+  footer,
+  children,
+}) => {
   const content = (
-    <div className={`modal ${props.className}`} style={props.style}>
-      <header className={`modal__header ${props.headerClass}`}>
-        <h2>{props.header}</h2>
+    <div className={`modal ${className}`} style={style}>
+      <header className={`modal__header ${headerClass}`}>
+        <h2>{header}</h2>
       </header>
-      <form
-        onSubmit={
-          props.onSubmit ? props.onSubmit : (event) => event.preventDefault()
-        }
-      >
-        <div className={`modal__content ${props.contentClass}`}>
-          {props.children}
-        </div>
-        <footer className={`modal__footer ${props.footerClass}`}>
-          {props.footer}
-        </footer>
+      <form onSubmit={onSubmit ? onSubmit : (event) => event.preventDefault()}>
+        <div className={`modal__content ${contentClass}`}>{children}</div>
+        <footer className={`modal__footer ${footerClass}`}>{footer}</footer>
       </form>
     </div>
   );
   return ReactDOM.createPortal(content, document.getElementById('modal-hook'));
 };
 
-const Modal = (props) => {
+const Modal = ({ show, onCancel, ...props }) => {
   return (
-    <React.Fragment>
-      {props.show && <Backdrop onClick={props.onCancel} />}
-      {props.show && <ModalOverlay {...props} />}
-    </React.Fragment>
+    <Fragment>
+      {show && <Backdrop onClick={onCancel} />}
+      {show && <ModalOverlay {...props} />}
+    </Fragment>
   );
 };
 

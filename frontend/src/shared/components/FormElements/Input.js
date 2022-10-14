@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import { useReducer, useEffect } from 'react';
 
 import { validate } from '../../util/validators';
 import './Input.css';
@@ -68,21 +68,17 @@ const Input = (props) => {
     );
 
   return (
-    <React.Fragment>
-      <div
-        className={`form-control ${
-          !inputState.isValid && inputState.isTouched && 'form-control--invalid'
-        }`}
-      >
-        {!inputState.isValid && inputState.isTouched && (
-          <p>{props.errorText}</p>
-        )}
-        <div>
-          <label htmlFor={props.id}>{props.label}</label>
-          {element}
-        </div>
+    <div
+      className={`form-control ${
+        !inputState.isValid && inputState.isTouched && 'form-control--invalid'
+      }`}
+    >
+      {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
+      <div>
+        <label htmlFor={props.id}>{props.label}</label>
+        {element}
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 

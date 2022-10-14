@@ -12,20 +12,11 @@ import { useAuth } from './shared/hooks/auth-hook';
 function App() {
   const { token, login, logout, userId, isAdmin } = useAuth();
   const [dtcSearchValue, setDtcSearchValue] = useState();
-  const [dtcListChanged, setDtcListChanged] = useState(false);
-
-  const dtcListHandler = () => {
-    setDtcListChanged((prevS) => !prevS);
-  };
 
   const mainPage = (
     <React.Fragment>
-      <Header setSearch={setDtcSearchValue} setIsChanged={dtcListHandler} />
-      <Dtcs
-        search={dtcSearchValue}
-        isChanged={dtcListChanged}
-        setIsChanged={dtcListHandler}
-      />
+      <Header setSearch={setDtcSearchValue} />
+      <Dtcs search={dtcSearchValue} />
       <Footer />
     </React.Fragment>
   );

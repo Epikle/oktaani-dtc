@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, Fragment } from 'react';
 
 import { AuthContext } from '../../context/auth-context';
 import AddDtc from '../../../dtc/components/AddDtc';
@@ -7,7 +7,7 @@ import AboutDtcs from '../../../dtc/components/AboutDtcs';
 import logo from '../../images/logo.svg';
 import styles from './Header.module.css';
 
-const Header = (props) => {
+const Header = ({ setSearch, setIsChanged }) => {
   const auth = useContext(AuthContext);
 
   const [isNewDtc, setIsNewDtc] = useState(false);
@@ -15,11 +15,10 @@ const Header = (props) => {
   const [isAboutDtc, setIsAboutDtc] = useState(false);
 
   const toggleAboutDtc = () => setIsAboutDtc((prevS) => !prevS);
-
   const newDtcModalHandler = () => setIsNewDtc((prevS) => !prevS);
 
   const searchHandler = (event) => {
-    props.setSearch(event.target.value);
+    setSearch(event.target.value);
   };
 
   let prevScrollPos = window.scrollY;
@@ -44,10 +43,10 @@ const Header = (props) => {
   });
 
   return (
-    <React.Fragment>
+    <Fragment>
       <AddDtc
         showModal={isNewDtc}
-        setIsChanged={props.setIsChanged}
+        setIsChanged={setIsChanged}
         onCancel={newDtcModalHandler}
       />
       <AboutDtcs isAboutDtc={isAboutDtc} onCancel={toggleAboutDtc} />
@@ -119,7 +118,7 @@ const Header = (props) => {
           </div>
         )}
       </header>
-    </React.Fragment>
+    </Fragment>
   );
 };
 

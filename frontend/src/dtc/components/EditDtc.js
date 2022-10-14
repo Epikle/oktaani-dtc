@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, Fragment } from 'react';
 
 import Modal from '../../shared/components/UI/Modal';
 import Input from '../../shared/components/FormElements/Input';
@@ -119,13 +119,13 @@ const EditDtc = (props) => {
   };
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Modal
         show={props.showModal}
         onCancel={props.hideModal}
         header="Edit DTC"
         footer={
-          <React.Fragment>
+          <Fragment>
             <Button inverse onClick={props.hideModal} type="button">
               CANCEL
             </Button>
@@ -137,7 +137,7 @@ const EditDtc = (props) => {
             >
               EDIT DTC
             </Button>
-          </React.Fragment>
+          </Fragment>
         }
       >
         {error && (
@@ -147,7 +147,7 @@ const EditDtc = (props) => {
         )}
         {isLoading && <LoadingSpinner />}
         {!isLoading && loadedDtc && (
-          <React.Fragment>
+          <Fragment>
             <Input
               id="systemTitle"
               element="input"
@@ -219,10 +219,10 @@ const EditDtc = (props) => {
               initialValue={loadedDtc.dtc.code.location}
               initialValid={true}
             />
-          </React.Fragment>
+          </Fragment>
         )}
       </Modal>
-    </React.Fragment>
+    </Fragment>
   );
 };
 

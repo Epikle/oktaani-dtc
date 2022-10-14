@@ -1,6 +1,5 @@
-import React from 'react';
-
 import DtcItem from './DtcItem';
+
 import './DtcList.css';
 
 const DtcList = ({ dtcs, onDeleteDtc, setIsChanged }) => (

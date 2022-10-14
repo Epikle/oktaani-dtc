@@ -1,96 +1,69 @@
-import React, { useState, useEffect } from 'react';
+import { useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
-import { useHttpClient } from '../../shared/hooks/http-hook';
 import Modal from '../../shared/components/UI/Modal';
 import Button from '../../shared/components/FormElements/Button';
-import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
+import { getDtcList } from '../../shared/util/fetch';
 
-const ShowDtc = (props) => {
-  const [loadedDtc, setLoadedDtc] = useState();
-  const { isLoading, error, sendRequest } = useHttpClient();
+const ShowDtc = ({ id }) => {
   const [dtcModal, setDtcModal] = useState(true);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchDtc = async () => {
-      let responseData;
-      try {
-        responseData = await sendRequest(
-          `${process.env.REACT_APP_BACKEND_URL}/dtc/${props.id}`
-        );
-      } catch (error) {
-        console.log(error);
-      }
-      setLoadedDtc(responseData);
-    };
-
-    fetchDtc();
-  }, [sendRequest, props.id]);
+  const { isLoading, isError, data, error } = useQuery(['dtcList'], getDtcList);
 
   const closeDtcModalHandler = () => {
     setDtcModal(false);
     navigate('/');
   };
 
+  if (isLoading) return null;
+  if (isError) {
+    console.log(error);
+    return null;
+  }
+
+  const dtc = data.length > 0 ? data.filter((dtc) => dtc.id === id) : [];
+
+  if (dtc.length === 0) navigate('/');
+
   return (
-    <React.Fragment>
+    <Fragment>
       <Modal
         show={dtcModal}
         onCancel={closeDtcModalHandler}
         header={
-          !isLoading && loadedDtc ? (
-            <>
-              {loadedDtc.dtc.code.title}{' '}
-              <span>/ {loadedDtc.dtc.system.title}</span>
-            </>
-          ) : (
-            'Loading...'
-          )
+          <Fragment>
+            {dtc[0].code.title} <span>/ {dtc[0].system.title}</span>
+          </Fragment>
         }
-        headerClass={
-          !isLoading && loadedDtc
-            ? loadedDtc.dtc.code.title.charAt(0).toLowerCase() + '-code'
-            : ''
-        }
+        headerClass={dtc[0].code.title.charAt(0).toLowerCase() + '-code'}
         footer={
-          <React.Fragment>
-            <Button inverse onClick={closeDtcModalHandler} type="button">
-              CLOSE
-            </Button>
-          </React.Fragment>
+          <Button inverse onClick={closeDtcModalHandler} type="button">
+            CLOSE
+          </Button>
         }
       >
-        {error && (
+        <div>
           <p>
-            <strong>Error:</strong> {error}
+            <strong>Subsystem</strong>
+            <br /> {dtc[0].system.subName} ({dtc[0].system.subCode})
           </p>
-        )}
-        {isLoading && <LoadingSpinner />}
-        {!isLoading && loadedDtc && (
-          <div>
-            <p>
-              <strong>Subsystem</strong>
-              <br /> {loadedDtc.dtc.system.subName} (
-              {loadedDtc.dtc.system.subCode})
-            </p>
-            <p>
-              <strong>Code Description</strong>
-              <br />
-              {loadedDtc.dtc.code.description}
-            </p>
-            <p>
-              {loadedDtc.dtc.code.location && (
-                <>
-                  <strong>Code Location</strong>
-                  <br /> {loadedDtc.dtc.code.location}
-                </>
-              )}
-            </p>
-          </div>
-        )}
+          <p>
+            <strong>Code Description</strong>
+            <br />
+            {dtc[0].code.description}
+          </p>
+          <p>
+            {dtc[0].code.location && (
+              <>
+                <strong>Code Location</strong>
+                <br /> {dtc[0].code.location}
+              </>
+            )}
+          </p>
+        </div>
       </Modal>
-    </React.Fragment>
+    </Fragment>
   );
 };
 
