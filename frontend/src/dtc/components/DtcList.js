@@ -3,23 +3,17 @@ import React from 'react';
 import DtcItem from './DtcItem';
 import './DtcList.css';
 
-const DtcList = (props) => {
-  return (
-    <ul className="dtc-list">
-      {props.dtcs.map((dtc) => (
-        <DtcItem
-          key={dtc.id}
-          id={dtc.id}
-          systemTitle={dtc.system.title}
-          codeTitle={dtc.code.title}
-          description={dtc.code.description}
-          onDelete={props.onDeleteDtc}
-          onUpdate={props.onUpdate}
-          setIsChanged={props.setIsChanged}
-        />
-      ))}
-    </ul>
-  );
-};
+const DtcList = ({ dtcs, onDeleteDtc, setIsChanged }) => (
+  <ul className="dtc-list">
+    {dtcs.map((dtc) => (
+      <DtcItem
+        key={dtc.id}
+        dtc={dtc}
+        onDelete={onDeleteDtc}
+        setIsChanged={setIsChanged}
+      />
+    ))}
+  </ul>
+);
 
 export default DtcList;

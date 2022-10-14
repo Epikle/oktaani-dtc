@@ -1,36 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
-import { useHttpClient } from '../../shared/hooks/http-hook';
+import { URLS } from '../../shared/util/urls';
 import DtcItem from '../components/DtcItem';
 import DtcList from '../components/DtcList';
 import ShowDtc from '../components/ShowDtc';
 
 import './Dtcs.css';
 
-const Dtcs = (props) => {
-  const [loadedDtcs, setLoadedDtcs] = useState();
-  const { isLoading, error, sendRequest } = useHttpClient();
+const Dtcs = ({ search, isChanged, setIsChanged }) => {
+  const { isLoading, isError, data, error } = useQuery(
+    ['dtcList'],
+    async () => {
+      const dtcList = await axios.get(`${URLS.apiUrl}/dtc`);
+      return dtcList.data;
+    }
+  );
 
-  useEffect(() => {
-    const fetchDtcs = async () => {
-      try {
-        const responseData = await sendRequest(
-          `${process.env.REACT_APP_BACKEND_URL}/dtc`
-        );
-        setLoadedDtcs(responseData.dtcList);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  // const [loadedDtcs, setLoadedDtcs] = useState();
+  // const { isLoading, error, sendRequest } = useHttpClient();
 
-    fetchDtcs();
-  }, [sendRequest, props.isChanged]);
+  // useEffect(() => {
+  //   const fetchDtcs = async () => {
+  //     try {
+  //       const responseData = await sendRequest(
+  //         `${URLS.apiUrl}/dtc`
+  //       );
+  //       setLoadedDtcs(responseData);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+
+  //   fetchDtcs();
+  // }, [sendRequest, props.isChanged]);
 
   const dtcDeletedHandler = (deletedDtcId) => {
-    setLoadedDtcs((prevDtcs) =>
-      prevDtcs.filter((dtc) => dtc.id !== deletedDtcId)
-    );
+    // setLoadedDtcs((prevDtcs) =>
+    //   prevDtcs.filter((dtc) => dtc.id !== deletedDtcId)
+    // );
   };
 
   //loading items count
@@ -43,13 +53,13 @@ const Dtcs = (props) => {
 
   let words = [];
 
-  if (props.search) {
-    words = props.search.trim().split(' ');
+  if (search) {
+    words = search.trim().split(' ');
   }
 
-  const dtcsToShow = !props.search
-    ? loadedDtcs
-    : loadedDtcs.filter((dtc) =>
+  const dtcsToShow = !search
+    ? data
+    : data.filter((dtc) =>
         words.some(
           (w) =>
             dtc.code.title.toLowerCase().includes(w.toLowerCase()) ||
@@ -60,20 +70,18 @@ const Dtcs = (props) => {
   return (
     <main>
       <h1>Diagnostic Trouble Codes</h1>
-      {props.search && props.search.trim() && (
-        <p className="search">Search: {props.search}</p>
-      )}
-      {props.search && props.search.trim() && dtcsToShow.length === 0 && (
+      {search && search.trim() && <p className="search">Search: {search}</p>}
+      {search && search.trim() && dtcsToShow.length === 0 && (
         <DtcItem notFound />
       )}
       {id && <ShowDtc id={id} />}
-      {error && <DtcItem error={error} />}
+      {isError && <DtcItem error={error} />}
       {isLoading && <ul className="dtc-list">{count}</ul>}
       {!isLoading && dtcsToShow && (
         <DtcList
           dtcs={dtcsToShow}
           onDeleteDtc={dtcDeletedHandler}
-          setIsChanged={props.setIsChanged}
+          setIsChanged={setIsChanged}
         />
       )}
     </main>

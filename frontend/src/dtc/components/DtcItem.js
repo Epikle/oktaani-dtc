@@ -9,7 +9,7 @@ import { useHttpClient } from '../../shared/hooks/http-hook';
 
 import './DtcItem.css';
 
-const DtcItem = (props) => {
+const DtcItem = ({ dtc, onDelete, setIsChanged, loading, error, notFound }) => {
   const auth = useContext(AuthContext);
   const { sendRequest } = useHttpClient();
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const DtcItem = (props) => {
     setIsDeleting(false);
     try {
       await sendRequest(
-        process.env.REACT_APP_BACKEND_URL + `/dtc/${props.id}`,
+        process.env.REACT_APP_BACKEND_URL + `/dtc/${dtc.id}`,
         'DELETE',
         null,
         {
@@ -32,11 +32,11 @@ const DtcItem = (props) => {
         }
       );
 
-      props.onDelete(props.id);
+      onDelete(dtc.id);
     } catch (error) {}
   };
 
-  if (props.loading) {
+  if (loading) {
     return (
       <li>
         <article className="loading-code">
@@ -45,14 +45,14 @@ const DtcItem = (props) => {
               <abbr title="Loading...">L</abbr>0000
             </h3>
           </div>
-          <p>Loading content, please wait. :)</p>
+          <p>Loading content, please wait.</p>
           <button className="more-code">Loading...</button>
         </article>
       </li>
     );
   }
 
-  if (props.error) {
+  if (error) {
     return (
       <ul className="dtc-list">
         <li>
@@ -62,7 +62,7 @@ const DtcItem = (props) => {
                 <abbr title="Error">R</abbr>error
               </h3>
             </div>
-            <p>{props.error}</p>
+            <p>{error}</p>
             <button className="more-code">Error</button>
           </article>
         </li>
@@ -70,7 +70,7 @@ const DtcItem = (props) => {
     );
   }
 
-  if (props.notFound) {
+  if (notFound) {
     return (
       <ul className="dtc-list">
         <li>
@@ -89,8 +89,8 @@ const DtcItem = (props) => {
   }
 
   const styles = auth.isLoggedIn
-    ? `${props.codeTitle.charAt(0).toLowerCase()}-code admin`
-    : `${props.codeTitle.charAt(0).toLowerCase()}-code`;
+    ? `${dtc.code.title.charAt(0).toLowerCase()}-code admin`
+    : `${dtc.code.title.charAt(0).toLowerCase()}-code`;
 
   return (
     <React.Fragment>
@@ -120,16 +120,16 @@ const DtcItem = (props) => {
       <EditDtc
         showModal={isEditing}
         hideModal={toggleEditHandler}
-        id={props.id}
-        setIsChanged={props.setIsChanged}
+        id={dtc.id}
+        setIsChanged={setIsChanged}
       />
 
       <li>
         <article className={styles}>
           <div>
             <h3>
-              <abbr title={props.systemTitle}>{props.codeTitle.charAt(0)}</abbr>
-              {props.codeTitle.substring(1)}
+              <abbr title={dtc.system.title}>{dtc.code.title.charAt(0)}</abbr>
+              {dtc.code.title.substring(1)}
             </h3>
             {auth.isLoggedIn && (
               <div className="control-code">
@@ -142,11 +142,11 @@ const DtcItem = (props) => {
               </div>
             )}
           </div>
-          <p>{props.description}</p>
+          <p>{dtc.code.description}</p>
           <button
             className="more-code"
             onClick={() => {
-              navigate('/dtc/' + props.id);
+              navigate('/dtc/' + dtc.id);
             }}
           >
             More info
