@@ -38,7 +38,7 @@ const Dtcs = ({ search }) => {
       {search?.trim() && <p className="search">Search: {search}</p>}
       {dtcsToShow?.length === 0 && <DtcItem notFound />}
       {id && <ShowDtc id={id} />}
-      {isError && <DtcItem error={error} />}
+      {isError && <DtcItem error={error.message} />}
       {isLoading && <ul className="dtc-list">{count}</ul>}
       {!isLoading && dtcsToShow && <DtcList dtcs={dtcsToShow} />}
     </main>
