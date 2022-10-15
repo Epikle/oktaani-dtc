@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import Modal from '../../shared/components/UI/Modal';
 import Button from '../../shared/components/FormElements/Button';
+import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
 import { getDtcList } from '../../shared/util/fetch';
 
 const ShowDtc = ({ id }) => {
@@ -16,10 +17,9 @@ const ShowDtc = ({ id }) => {
     navigate('/');
   };
 
-  //TODO: Make loading state and error state
-  if (isLoading) return null;
+  if (isLoading) return <LoadingSpinner />;
   if (isError) {
-    console.log(error);
+    console.error(error.message);
     return null;
   }
 
@@ -56,10 +56,10 @@ const ShowDtc = ({ id }) => {
           </p>
           <p>
             {dtc[0].code.location && (
-              <>
+              <Fragment>
                 <strong>Code Location</strong>
                 <br /> {dtc[0].code.location}
-              </>
+              </Fragment>
             )}
           </p>
         </div>

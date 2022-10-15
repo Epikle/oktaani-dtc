@@ -1,21 +1,19 @@
-import { useContext, useState, Fragment } from 'react';
+import { useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import EditDtc from './EditDtc';
 import Modal from '../../shared/components/UI/Modal';
 import Button from '../../shared/components/FormElements/Button';
-import { AuthContext } from '../../shared/context/auth-context';
 import { deleteDtc } from '../../shared/util/fetch';
 
 import './DtcItem.css';
 
 const DtcItem = ({ dtc, loading, error, notFound, placeholderCount = 6 }) => {
-  const auth = useContext(AuthContext);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const queryClient = useQueryClient();
 
   const toggleDeleteHandler = () => setIsDeleting((prevS) => !prevS);
   const toggleEditHandler = () => setIsEditing((prevS) => !prevS);
@@ -33,7 +31,7 @@ const DtcItem = ({ dtc, loading, error, notFound, placeholderCount = 6 }) => {
     }
   );
 
-  const confirmDeleteHandler = async () => {
+  const confirmDeleteHandler = () => {
     setIsDeleting(false);
     deleteDtcMutation.mutate(dtc.id);
   };
@@ -95,7 +93,8 @@ const DtcItem = ({ dtc, loading, error, notFound, placeholderCount = 6 }) => {
     );
   }
 
-  const styles = auth.isLoggedIn
+  //TODO: auth
+  const styles = true
     ? `${dtc.code.title.charAt(0).toLowerCase()}-code admin`
     : `${dtc.code.title.charAt(0).toLowerCase()}-code`;
 
@@ -133,16 +132,19 @@ const DtcItem = ({ dtc, loading, error, notFound, placeholderCount = 6 }) => {
               <abbr title={dtc.system.title}>{dtc.code.title.charAt(0)}</abbr>
               {dtc.code.title.substring(1)}
             </h3>
-            {auth.isLoggedIn && (
-              <div className="control-code">
-                <button onClick={toggleEditHandler}>
-                  <span className="material-icons"> edit </span>
-                </button>
-                <button className="delete" onClick={toggleDeleteHandler}>
-                  <span className="material-icons"> delete </span>
-                </button>
-              </div>
-            )}
+            {
+              //TODO: auth
+              true && (
+                <div className="control-code">
+                  <button onClick={toggleEditHandler}>
+                    <span className="material-icons"> edit </span>
+                  </button>
+                  <button className="delete" onClick={toggleDeleteHandler}>
+                    <span className="material-icons"> delete </span>
+                  </button>
+                </div>
+              )
+            }
           </div>
           <p>{dtc.code.description}</p>
           <button
