@@ -1,5 +1,6 @@
 import { useState, Fragment } from 'react';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import Modal from '../../shared/components/UI/Modal';
 import Input from '../../shared/components/FormElements/Input';
@@ -10,6 +11,7 @@ import { createDtc } from '../../shared/util/fetch';
 import dtcSystems from '../../data/dtcSystems';
 
 const AddDtc = ({ showModal, onCancel }) => {
+  const { getAccessTokenSilently } = useAuth0();
   const [isSystemError, setIsSystemError] = useState(false);
   const queryClient = useQueryClient();
   const [formState, inputHandler] = useForm(
@@ -32,8 +34,7 @@ const AddDtc = ({ showModal, onCancel }) => {
 
   const createDtcMutation = useMutation(
     async (dtcData) => {
-      //TODO: need to implement auth0 and get token
-      const accessToken = 'DUMMY_TOKEN';
+      const accessToken = await getAccessTokenSilently();
       await createDtc(dtcData, accessToken);
     },
     {

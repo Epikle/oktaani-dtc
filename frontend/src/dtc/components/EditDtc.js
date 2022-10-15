@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import Modal from '../../shared/components/UI/Modal';
 import Input from '../../shared/components/FormElements/Input';
@@ -10,6 +11,7 @@ import { updateDtc } from '../../shared/util/fetch';
 
 const EditDtc = ({ dtc, hideModal, showModal }) => {
   const queryClient = useQueryClient();
+  const { getAccessTokenSilently } = useAuth0();
   const [formState, inputHandler] = useForm(
     {
       systemTitle: {
@@ -42,7 +44,7 @@ const EditDtc = ({ dtc, hideModal, showModal }) => {
 
   const updateDtcMutation = useMutation(
     async (dtcData) => {
-      const accessToken = 'DUMMY_TOKEN';
+      const accessToken = await getAccessTokenSilently();
       await updateDtc(dtc.id, dtcData, accessToken);
     },
     {
