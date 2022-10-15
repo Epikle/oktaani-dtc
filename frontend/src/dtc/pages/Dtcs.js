@@ -13,12 +13,6 @@ const Dtcs = ({ search }) => {
   const { id } = useParams();
   const { isLoading, isError, data, error } = useQuery(['dtcList'], getDtcList);
 
-  //placeholders while loading data
-  var count = [];
-  for (var i = 0; i < 6; i++) {
-    count.push(<DtcItem loading key={i} />);
-  }
-
   const dtcsToShow = !search
     ? data
     : data.filter((dtc) =>
@@ -37,10 +31,14 @@ const Dtcs = ({ search }) => {
       <h1>Diagnostic Trouble Codes</h1>
       {search?.trim() && <p className="search">Search: {search}</p>}
       {dtcsToShow?.length === 0 && <DtcItem notFound />}
-      {id && <ShowDtc id={id} />}
       {isError && <DtcItem error={error.message} />}
-      {isLoading && <ul className="dtc-list">{count}</ul>}
+      {isLoading && (
+        <ul className="dtc-list">
+          <DtcItem loading placeholderCount={6} />
+        </ul>
+      )}
       {!isLoading && dtcsToShow && <DtcList dtcs={dtcsToShow} />}
+      {id && <ShowDtc id={id} />}
     </main>
   );
 };

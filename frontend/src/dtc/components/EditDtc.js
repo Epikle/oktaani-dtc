@@ -1,12 +1,15 @@
 import { Fragment } from 'react';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import Modal from '../../shared/components/UI/Modal';
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
 import { VALIDATOR_REQUIRE } from '../../shared/util/validators';
 import { useForm } from '../../shared/hooks/form-hook';
+import { updateDtc } from '../../shared/util/fetch';
 
 const EditDtc = ({ dtc, hideModal, showModal }) => {
+  const queryClient = useQueryClient();
   const [formState, inputHandler] = useForm(
     {
       systemTitle: {
@@ -37,78 +40,35 @@ const EditDtc = ({ dtc, hideModal, showModal }) => {
     false
   );
 
-  // useEffect(() => {
-  //   const fetchDtc = async () => {
-  //     try {
-  //       const responseData = await sendRequest(
-  //         `${process.env.REACT_APP_BACKEND_URL}/dtc/${props.id}`
-  //       );
-  //       setLoadedDtc(responseData);
-  //       setFormData(
-  //         {
-  //           systemTitle: {
-  //             value: responseData.dtc.system.title,
-  //             isValid: true,
-  //           },
-  //           subCode: {
-  //             value: responseData.dtc.system.subCode,
-  //             isValid: true,
-  //           },
-  //           subName: {
-  //             value: responseData.dtc.system.subName,
-  //             isValid: true,
-  //           },
-  //           codeTitle: {
-  //             value: responseData.dtc.code.title,
-  //             isValid: true,
-  //           },
-  //           description: {
-  //             value: responseData.dtc.code.description,
-  //             isValid: true,
-  //           },
-  //           location: {
-  //             value: responseData.dtc.code.location,
-  //             isValid: true,
-  //           },
-  //         },
-  //         true
-  //       );
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   if (props.showModal && !loadedDtc) {
-  //     fetchDtc();
-  //   }
-  // }, [sendRequest, props.id, setFormData, props.showModal, loadedDtc]);
+  const updateDtcMutation = useMutation(
+    async (dtcData) => {
+      const accessToken = 'DUMMY_TOKEN';
+      await updateDtc(dtc.id, dtcData, accessToken);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['dtcList']);
+      },
+    }
+  );
 
-  //Edit Dtc to database
   const submitHandler = async (event) => {
     event.preventDefault();
-    // try {
-    //   await sendRequest(
-    //     process.env.REACT_APP_BACKEND_URL + '/dtc/' + props.id,
-    //     'PATCH',
-    //     JSON.stringify({
-    //       system: {
-    //         title: formState.inputs.systemTitle.value,
-    //         subCode: formState.inputs.subCode.value,
-    //         subName: formState.inputs.subName.value,
-    //       },
-    //       code: {
-    //         title: formState.inputs.codeTitle.value,
-    //         description: formState.inputs.description.value,
-    //         location: formState.inputs.location.value,
-    //       },
-    //     }),
-    //     {
-    //       'Content-Type': 'application/json',
-    //       Authorization: 'Bearer ' + auth.token,
-    //     }
-    //   );
-    //   props.hideModal();
-    //   props.setIsChanged();
-    // } catch (error) {}
+    const updatedDtcData = {
+      system: {
+        title: formState.inputs.systemTitle.value,
+        subCode: formState.inputs.subCode.value,
+        subName: formState.inputs.subName.value,
+      },
+      code: {
+        title: formState.inputs.codeTitle.value,
+        description: formState.inputs.description.value,
+        location: formState.inputs.location.value,
+      },
+    };
+
+    updateDtcMutation.mutate(updatedDtcData);
+    hideModal();
   };
 
   return (

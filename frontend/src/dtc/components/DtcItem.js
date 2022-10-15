@@ -10,7 +10,7 @@ import { deleteDtc } from '../../shared/util/fetch';
 
 import './DtcItem.css';
 
-const DtcItem = ({ dtc, setIsChanged, loading, error, notFound }) => {
+const DtcItem = ({ dtc, loading, error, notFound, placeholderCount = 6 }) => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
   const [isDeleting, setIsDeleting] = useState(false);
@@ -39,19 +39,24 @@ const DtcItem = ({ dtc, setIsChanged, loading, error, notFound }) => {
   };
 
   if (loading) {
-    return (
-      <li>
-        <article className="loading-code">
-          <div>
-            <h3>
-              <abbr title="Loading...">L</abbr>0000
-            </h3>
-          </div>
-          <p>Loading content, please wait.</p>
-          <button className="more-code">Loading...</button>
-        </article>
-      </li>
+    const loadingPlaceholders = Array.from(
+      Array(placeholderCount),
+      (_, idx) => (
+        <li key={idx}>
+          <article className="loading-code">
+            <div>
+              <h3>
+                <abbr title="Loading...">L</abbr>0000
+              </h3>
+            </div>
+            <p>Loading content, please wait.</p>
+            <button className="more-code">Loading...</button>
+          </article>
+        </li>
+      )
     );
+
+    return loadingPlaceholders;
   }
 
   if (error) {
