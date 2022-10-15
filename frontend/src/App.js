@@ -5,13 +5,15 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Header from './shared/components/UI/Header';
 import Footer from './shared/components/UI/Footer';
 import Dtcs from './dtc/pages/Dtcs';
+import ProtectedRoute from './shared/components/UI/ProtectedRoute';
+import { Auth0ProviderWithConfig } from './auth0-provider-with-config';
 
 const queryClient = new QueryClient();
 
 function App() {
   const [dtcSearchValue, setDtcSearchValue] = useState();
 
-  const mainPage = (
+  const MainPage = () => (
     <Fragment>
       <Header setSearch={setDtcSearchValue} />
       <Dtcs search={dtcSearchValue} />
@@ -20,15 +22,21 @@ function App() {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={mainPage} />
-          <Route path="/dtc/:id" element={mainPage} />
-          <Route path="*" element={mainPage} />
-        </Routes>
-      </BrowserRouter>
-    </QueryClientProvider>
+    <Auth0ProviderWithConfig>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/dtc/:id" element={<MainPage />} />
+            <Route
+              path="/admin"
+              element={<ProtectedRoute component={MainPage} />}
+            />
+            <Route path="*" element={<MainPage />} />
+          </Routes>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </Auth0ProviderWithConfig>
   );
 }
 

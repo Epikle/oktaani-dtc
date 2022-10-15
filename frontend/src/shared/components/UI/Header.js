@@ -1,15 +1,18 @@
 import { useEffect, useState, Fragment } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import AddDtc from '../../../dtc/components/AddDtc';
 import AboutDtcs from '../../../dtc/components/AboutDtcs';
 
 import logo from '../../images/logo.svg';
 import styles from './Header.module.css';
+import { URLS } from '../../util/urls';
 
 const Header = ({ setSearch }) => {
   const [isNewDtc, setIsNewDtc] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [isAboutDtc, setIsAboutDtc] = useState(false);
+  const { logout, user } = useAuth0();
 
   const toggleAboutDtc = () => setIsAboutDtc((prevS) => !prevS);
   const newDtcModalHandler = () => setIsNewDtc((prevS) => !prevS);
@@ -70,39 +73,40 @@ const Header = ({ setSearch }) => {
             />
           </form>
         </div>
-
-        {
-          //TODO: auth
-          true ? (
-            <div>
-              <button className={styles.more} onClick={toggleAboutDtc}>
-                Want to learn
-                <br />
-                more about{' '}
-                <strong>
-                  <abbr title="Diagnostic Trouble Code">DTC</abbr>
-                </strong>
-                's?
+        {user?.email ? (
+          <div className={styles['admin-controls']}>
+            <button className={styles.btn} onClick={newDtcModalHandler}>
+              <span className="material-icons">add</span>
+            </button>
+            <div className={styles['admin-user']}>
+              <button className={styles.btn}>
+                <span className="material-icons">person</span>
               </button>
-            </div>
-          ) : (
-            <div className={styles['admin-controls']}>
-              <button className={styles.btn} onClick={newDtcModalHandler}>
-                <span className="material-icons">add</span>
-              </button>
-              <div className={styles['admin-user']}>
-                <button className={styles.btn}>
-                  <span className="material-icons">person</span>
+              <div className={styles['admin-user-dropdown']}>
+                <button
+                  className={styles['btn-drop']}
+                  onClick={() => {
+                    logout({ returnTo: URLS.pageUrl });
+                  }}
+                >
+                  <span className="material-icons">logout</span>
                 </button>
-                <div className={styles['admin-user-dropdown']}>
-                  <button className={styles['btn-drop']}>
-                    <span className="material-icons">logout</span>
-                  </button>
-                </div>
               </div>
             </div>
-          )
-        }
+          </div>
+        ) : (
+          <div>
+            <button className={styles.more} onClick={toggleAboutDtc}>
+              Want to learn
+              <br />
+              more about{' '}
+              <strong>
+                <abbr title="Diagnostic Trouble Code">DTC</abbr>
+              </strong>
+              's?
+            </button>
+          </div>
+        )}
       </header>
     </Fragment>
   );
