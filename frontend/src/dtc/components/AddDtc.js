@@ -1,22 +1,17 @@
-import { useContext, useState, Fragment } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, Fragment } from 'react';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import Modal from '../../shared/components/UI/Modal';
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
 import { VALIDATOR_REQUIRE } from '../../shared/util/validators';
-import { useHttpClient } from '../../shared/hooks/http-hook';
-import { AuthContext } from '../../shared/context/auth-context';
 import { useForm } from '../../shared/hooks/form-hook';
+import { createDtc } from '../../shared/util/fetch';
 import dtcSystems from '../../data/dtcSystems';
 
-const AddDtc = (props) => {
-  const auth = useContext(AuthContext);
-  const { error, sendRequest } = useHttpClient();
-  const navigate = useNavigate();
-
+const AddDtc = ({ showModal, onCancel }) => {
   const [isSystemError, setIsSystemError] = useState(false);
-
+  const queryClient = useQueryClient();
   const [formState, inputHandler] = useForm(
     {
       codeTitle: {
@@ -35,62 +30,58 @@ const AddDtc = (props) => {
     false
   );
 
-  //Add new Dtc to database
+  const createDtcMutation = useMutation(
+    async (dtcData) => {
+      //TODO: need to implement auth0 and get token
+      const accessToken = 'DUMMY_TOKEN';
+      await createDtc(dtcData, accessToken);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['dtcList']);
+      },
+    }
+  );
+
   const submitHandler = async (event) => {
     event.preventDefault();
 
-    const found = dtcSystems.find((system) =>
-      system.code
-        .toLowerCase()
-        .startsWith(
-          formState.inputs.codeTitle.value.substring(0, 3).toLowerCase()
-        )
-    );
+    const codeGroup =
+      formState.inputs.codeTitle.value.substring(0, 3).toUpperCase() + 'XX';
+    const codeGroupData = dtcSystems[codeGroup];
 
-    if (!found) {
+    if (!codeGroupData) {
       setIsSystemError(true);
       return;
     }
 
-    let responseData;
+    const createdDtc = {
+      system: {
+        title: codeGroupData.system,
+        subCode: codeGroup,
+        subName: codeGroupData.subsystem,
+      },
+      code: {
+        title: formState.inputs.codeTitle.value,
+        description: formState.inputs.description.value,
+        location: formState.inputs.location.value,
+      },
+    };
 
-    try {
-      responseData = await sendRequest(
-        `${process.env.REACT_APP_BACKEND_URL}/dtc`,
-        'POST',
-        JSON.stringify({
-          system: {
-            title: found.system,
-            subCode: found.code,
-            subName: found.subsystem,
-          },
-          code: {
-            title: formState.inputs.codeTitle.value,
-            description: formState.inputs.description.value,
-            location: formState.inputs.location.value,
-          },
-        }),
-        {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + auth.token,
-        }
-      );
-      props.onCancel();
-      props.setIsChanged();
-      navigate('/dtc/' + responseData.dtc._id);
-    } catch (error) {}
+    createDtcMutation.mutate(createdDtc);
+    onCancel();
   };
 
   return (
     <Modal
-      show={props.showModal}
+      show={showModal}
       onSubmit={submitHandler}
-      onCancel={props.onCancel}
+      onCancel={onCancel}
       header="Add new DTC"
       footerClass="place-item__modal-actions"
       footer={
         <Fragment>
-          <Button inverse onClick={props.onCancel} type="button">
+          <Button inverse onClick={onCancel} type="button">
             CANCEL
           </Button>
           <Button
@@ -104,7 +95,6 @@ const AddDtc = (props) => {
         </Fragment>
       }
     >
-      {error && <p>{error}</p>}
       {isSystemError && <p>Code system group not found in database.</p>}
       <Input
         id="codeTitle"

@@ -7,7 +7,7 @@ import AboutDtcs from '../../../dtc/components/AboutDtcs';
 import logo from '../../images/logo.svg';
 import styles from './Header.module.css';
 
-const Header = ({ setSearch, setIsChanged }) => {
+const Header = ({ setSearch }) => {
   const auth = useContext(AuthContext);
 
   const [isNewDtc, setIsNewDtc] = useState(false);
@@ -44,11 +44,7 @@ const Header = ({ setSearch, setIsChanged }) => {
 
   return (
     <Fragment>
-      <AddDtc
-        showModal={isNewDtc}
-        setIsChanged={setIsChanged}
-        onCancel={newDtcModalHandler}
-      />
+      <AddDtc showModal={isNewDtc} onCancel={newDtcModalHandler} />
       <AboutDtcs isAboutDtc={isAboutDtc} onCancel={toggleAboutDtc} />
       <header className={!isVisible ? styles.hide : ''}>
         <div>
@@ -101,15 +97,6 @@ const Header = ({ setSearch, setIsChanged }) => {
                 <span className="material-icons">person</span>
               </button>
               <div className={styles['admin-user-dropdown']}>
-                {/* <button className={styles['btn-drop']}>
-                  <span className="material-icons">manage_accounts</span>
-                </button>
-                <button className={styles['btn-drop']}>
-                  <span className="material-icons">person_add</span>
-                </button>
-                <button className={styles['btn-drop']}>
-                  <span className="material-icons">text_snippet</span>
-                </button> */}
                 <button className={styles['btn-drop']} onClick={auth.logout}>
                   <span className="material-icons">logout</span>
                 </button>

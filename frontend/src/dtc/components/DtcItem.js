@@ -1,39 +1,41 @@
 import { useContext, useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import EditDtc from './EditDtc';
 import Modal from '../../shared/components/UI/Modal';
 import Button from '../../shared/components/FormElements/Button';
 import { AuthContext } from '../../shared/context/auth-context';
-import { useHttpClient } from '../../shared/hooks/http-hook';
+import { deleteDtc } from '../../shared/util/fetch';
 
 import './DtcItem.css';
 
-const DtcItem = ({ dtc, onDelete, setIsChanged, loading, error, notFound }) => {
+const DtcItem = ({ dtc, setIsChanged, loading, error, notFound }) => {
   const auth = useContext(AuthContext);
-  const { sendRequest } = useHttpClient();
   const navigate = useNavigate();
-
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const queryClient = useQueryClient();
 
   const toggleDeleteHandler = () => setIsDeleting((prevS) => !prevS);
   const toggleEditHandler = () => setIsEditing((prevS) => !prevS);
 
+  const deleteDtcMutation = useMutation(
+    async (id) => {
+      //TODO: need to implement auth0 and get token
+      const accessToken = 'DUMMY_TOKEN';
+      await deleteDtc(id, accessToken);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['dtcList']);
+      },
+    }
+  );
+
   const confirmDeleteHandler = async () => {
     setIsDeleting(false);
-    try {
-      await sendRequest(
-        process.env.REACT_APP_BACKEND_URL + `/dtc/${dtc.id}`,
-        'DELETE',
-        null,
-        {
-          Authorization: 'Bearer ' + auth.token,
-        }
-      );
-
-      onDelete(dtc.id);
-    } catch (error) {}
+    deleteDtcMutation.mutate(dtc.id);
   };
 
   if (loading) {
@@ -117,12 +119,7 @@ const DtcItem = ({ dtc, onDelete, setIsChanged, loading, error, notFound }) => {
         </p>
       </Modal>
 
-      <EditDtc
-        showModal={isEditing}
-        hideModal={toggleEditHandler}
-        id={dtc.id}
-        setIsChanged={setIsChanged}
-      />
+      <EditDtc showModal={isEditing} hideModal={toggleEditHandler} dtc={dtc} />
 
       <li>
         <article className={styles}>

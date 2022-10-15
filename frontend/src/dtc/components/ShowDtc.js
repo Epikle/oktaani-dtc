@@ -16,6 +16,7 @@ const ShowDtc = ({ id }) => {
     navigate('/');
   };
 
+  //TODO: Make loading state and error state
   if (isLoading) return null;
   if (isError) {
     console.log(error);
