@@ -44,9 +44,9 @@ const DtcItem = ({ dtc, loading, error, notFound, placeholderCount = 6 }) => {
         <li key={idx}>
           <article className="loading-code">
             <div>
-              <h3>
+              <h2>
                 <abbr title="Loading...">L</abbr>0000
-              </h3>
+              </h2>
             </div>
             <p>Loading content, please wait.</p>
             <button className="more-code">Loading...</button>
@@ -64,9 +64,9 @@ const DtcItem = ({ dtc, loading, error, notFound, placeholderCount = 6 }) => {
         <li>
           <article className="e-code">
             <div>
-              <h3>
+              <h2>
                 <abbr title="Error">R</abbr>error
-              </h3>
+              </h2>
             </div>
             <p>{error}</p>
             <button className="more-code">Error</button>
@@ -82,9 +82,9 @@ const DtcItem = ({ dtc, loading, error, notFound, placeholderCount = 6 }) => {
         <li>
           <article className="e-code">
             <div>
-              <h3>
+              <h2>
                 <abbr title="Not Found">?</abbr>Search
-              </h3>
+              </h2>
             </div>
             <p>Search didn't find anything. Try again.</p>
             <button className="more-code">Not Found</button>
@@ -128,10 +128,10 @@ const DtcItem = ({ dtc, loading, error, notFound, placeholderCount = 6 }) => {
       <li>
         <article className={styles}>
           <div>
-            <h3>
+            <h2>
               <abbr title={dtc.system.title}>{dtc.code.title.charAt(0)}</abbr>
               {dtc.code.title.substring(1)}
-            </h3>
+            </h2>
             {isAuthenticated && (
               <div className="control-code">
                 <button onClick={toggleEditHandler}>
