@@ -13,7 +13,7 @@ import './DtcItem.css';
 const DtcItem = ({ dtc, loading, error, notFound, placeholderCount = 6 }) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { user, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -94,7 +94,7 @@ const DtcItem = ({ dtc, loading, error, notFound, placeholderCount = 6 }) => {
     );
   }
 
-  const styles = user?.email
+  const styles = isAuthenticated
     ? `${dtc.code.title.charAt(0).toLowerCase()}-code admin`
     : `${dtc.code.title.charAt(0).toLowerCase()}-code`;
 
@@ -132,7 +132,7 @@ const DtcItem = ({ dtc, loading, error, notFound, placeholderCount = 6 }) => {
               <abbr title={dtc.system.title}>{dtc.code.title.charAt(0)}</abbr>
               {dtc.code.title.substring(1)}
             </h3>
-            {user?.email && (
+            {isAuthenticated && (
               <div className="control-code">
                 <button onClick={toggleEditHandler}>
                   <span className="material-icons"> edit </span>

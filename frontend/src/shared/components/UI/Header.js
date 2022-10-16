@@ -12,7 +12,7 @@ const Header = ({ setSearch }) => {
   const [isNewDtc, setIsNewDtc] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [isAboutDtc, setIsAboutDtc] = useState(false);
-  const { logout, user } = useAuth0();
+  const { logout, isAuthenticated } = useAuth0();
 
   const toggleAboutDtc = () => setIsAboutDtc((prevS) => !prevS);
   const newDtcModalHandler = () => setIsNewDtc((prevS) => !prevS);
@@ -73,7 +73,7 @@ const Header = ({ setSearch }) => {
             />
           </form>
         </div>
-        {user?.email ? (
+        {isAuthenticated ? (
           <div className={styles['admin-controls']}>
             <button className={styles.btn} onClick={newDtcModalHandler}>
               <span className="material-icons">add</span>
