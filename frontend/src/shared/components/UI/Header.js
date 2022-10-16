@@ -8,7 +8,7 @@ import logo from '../../images/logo.svg';
 import styles from './Header.module.css';
 import { URLS } from '../../util/urls';
 
-const Header = ({ setSearch }) => {
+const Header = ({ setSearch, search }) => {
   const [isNewDtc, setIsNewDtc] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [isAboutDtc, setIsAboutDtc] = useState(false);
@@ -70,6 +70,7 @@ const Header = ({ setSearch }) => {
               placeholder="Search for DTC's"
               onChange={searchHandler}
               maxLength="29"
+              value={search}
             />
           </form>
         </div>

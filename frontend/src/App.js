@@ -11,15 +11,16 @@ import { Auth0ProviderWithConfig } from './auth0-provider-with-config';
 const queryClient = new QueryClient();
 
 function App() {
-  const [dtcSearchValue, setDtcSearchValue] = useState();
-
-  const MainPage = () => (
-    <Fragment>
-      <Header setSearch={setDtcSearchValue} />
-      <Dtcs search={dtcSearchValue} />
-      <Footer />
-    </Fragment>
-  );
+  const MainPage = () => {
+    const [dtcSearchValue, setDtcSearchValue] = useState('');
+    return (
+      <Fragment>
+        <Header setSearch={setDtcSearchValue} search={dtcSearchValue} />
+        <Dtcs search={dtcSearchValue} />
+        <Footer />
+      </Fragment>
+    );
+  };
 
   return (
     <Auth0ProviderWithConfig>
