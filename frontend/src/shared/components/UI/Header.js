@@ -48,7 +48,13 @@ const Header = ({ setSearch, search }) => {
       <AboutDtcs isAboutDtc={isAboutDtc} onCancel={toggleAboutDtc} />
       <header className={!isVisible ? styles.hide : ''}>
         <div>
-          <img src={logo} alt="oktaaniDTC Logo" className={styles.logo} />
+          <img
+            src={logo}
+            alt="oktaaniDTC Logo"
+            className={styles.logo}
+            width="226"
+            height="32"
+          />
         </div>
         <div>
           <form

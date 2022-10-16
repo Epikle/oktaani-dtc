@@ -10,43 +10,43 @@ article {
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
 }
 
-article h3 {
+article h2 {
   font-size: 1rem;
   font-weight: normal;
 }
 
-article h3 abbr {
+article h2 abbr {
   text-decoration: none;
   text-transform: uppercase;
   cursor: help;
 }
 
-article h3::first-letter {
+article h2::first-letter {
   font-weight: bold;
   letter-spacing: 3px;
 }
 
-article.p-code h3::first-letter {
+article.p-code h2::first-letter {
   color: var(--color-code-p);
 }
 
-article.c-code h3::first-letter {
+article.c-code h2::first-letter {
   color: var(--color-code-c);
 }
 
-article.b-code h3::first-letter {
+article.b-code h2::first-letter {
   color: var(--color-code-b);
 }
 
-article.u-code h3::first-letter {
+article.u-code h2::first-letter {
   color: var(--color-code-u);
 }
 
-article.e-code h3::first-letter {
+article.e-code h2::first-letter {
   color: var(--color-code-e);
 }
 
-article.loading-code h3 {
+article.loading-code h2 {
   width: max-content;
   color: transparent;
   margin-bottom: 0.25rem;
