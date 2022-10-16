@@ -34,7 +34,7 @@ const Dtcs = ({ search }) => {
       {isError && <DtcItem error={error.message} />}
       {isLoading && (
         <ul className="dtc-list">
-          <DtcItem loading placeholderCount={6} />
+          <DtcItem loading placeholderCount={35} />
         </ul>
       )}
       {!isLoading && dtcsToShow && <DtcList dtcs={dtcsToShow} />}

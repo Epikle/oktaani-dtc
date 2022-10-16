@@ -81,7 +81,7 @@ const dtcSystems = {
   },
   P28XX: {
     system: 'Powertrain',
-    subsystem: 'Transmission DTCs',
+    subsystem: 'Transmission',
   },
   P2AXX: {
     system: 'Powertrain',
