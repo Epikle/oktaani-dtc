@@ -10,7 +10,7 @@ import { getDtcList } from '../../shared/util/fetch';
 
 import './DtcList.css';
 
-const maxSearchResults = 50;
+const maxSearchResults = 100;
 
 const DtcList = ({ search }) => {
   const { isLoading, isError, data, error } = useQuery(['dtcList'], getDtcList);
