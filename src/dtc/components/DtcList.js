@@ -10,6 +10,8 @@ import { getDtcList } from '../../shared/util/fetch';
 
 import './DtcList.css';
 
+const maxSearchResults = 50;
+
 const DtcList = ({ search }) => {
   const { isLoading, isError, data, error } = useQuery(['dtcList'], getDtcList);
   const [listItems, setListItems] = useState(100);
@@ -20,14 +22,13 @@ const DtcList = ({ search }) => {
   });
 
   useEffect(() => {
-    if (search) {
-      setListItems(100);
-      window.scrollTo(0, 0);
-    }
-    if (inView) {
-      setListItems((prevS) => prevS + 100);
-    }
-  }, [inView, search]);
+    setListItems((prevS) => prevS + 100);
+  }, [inView]);
+
+  useEffect(() => {
+    setListItems(100);
+    window.scrollTo(0, 0);
+  }, [search]);
 
   if (isError) return <DtcError error={error.message} />;
   if (isLoading) return <DtcLoading placeholders={36} />;
@@ -39,9 +40,11 @@ const DtcList = ({ search }) => {
           search
             .trim()
             .split(' ')
-            .some((w) => dtc.code.title.toLowerCase().includes(w.toLowerCase()))
+            .some((w) =>
+              dtc.code.title.toLowerCase().startsWith(w.toLowerCase())
+            )
         )
-        .slice(0, 50);
+        .slice(0, maxSearchResults);
 
   if (dtcsToShow.length === 0) return <DtcNotFound />;
 
