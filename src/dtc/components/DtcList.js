@@ -10,11 +10,13 @@ import { getDtcList } from '../../shared/util/fetch';
 
 import './DtcList.css';
 
+const defaultDtcAmount = 100;
+const increaseDtcsBy = 100;
 const maxSearchResults = 100;
 
 const DtcList = ({ search, setDtcAmount }) => {
   const { isLoading, isError, data, error } = useQuery(['dtcList'], getDtcList);
-  const [listItems, setListItems] = useState(100);
+  const [listItems, setListItems] = useState(defaultDtcAmount);
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -22,11 +24,11 @@ const DtcList = ({ search, setDtcAmount }) => {
   });
 
   useEffect(() => {
-    setListItems((prevS) => prevS + 100);
+    setListItems((prevS) => prevS + increaseDtcsBy);
   }, [inView]);
 
   useEffect(() => {
-    setListItems(100);
+    setListItems(maxSearchResults);
     window.scrollTo(0, 0);
   }, [search]);
 
