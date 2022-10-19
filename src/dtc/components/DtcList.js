@@ -12,7 +12,7 @@ import './DtcList.css';
 
 const maxSearchResults = 100;
 
-const DtcList = ({ search }) => {
+const DtcList = ({ search, setDtcAmount }) => {
   const { isLoading, isError, data, error } = useQuery(['dtcList'], getDtcList);
   const [listItems, setListItems] = useState(100);
 
@@ -29,6 +29,10 @@ const DtcList = ({ search }) => {
     setListItems(100);
     window.scrollTo(0, 0);
   }, [search]);
+
+  useEffect(() => {
+    if (data) setDtcAmount(data.length);
+  }, [data, setDtcAmount]);
 
   if (isError) return <DtcError error={error.message} />;
   if (isLoading) return <DtcLoading placeholders={36} />;
