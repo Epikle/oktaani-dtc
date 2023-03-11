@@ -93,7 +93,7 @@ const Header = ({ setSearch, search }) => {
                 <button
                   className={styles['btn-drop']}
                   onClick={() => {
-                    logout({ returnTo: URLS.pageUrl });
+                    logout({ logoutParams: { returnTo: URLS.pageUrl } });
                   }}
                 >
                   <span className="material-icons">logout</span>
