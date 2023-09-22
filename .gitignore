@@ -1,6 +1,0 @@
-**/node_modules
-**/build
-
-**nodemon.json
-**.env.production.local
-**.env.local
