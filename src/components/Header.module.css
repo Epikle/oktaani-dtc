@@ -1,0 +1,114 @@
+.header {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: var(--color-primary-black);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.logo {
+  height: 2rem;
+  user-select: none;
+}
+
+.dtc-search {
+  border-radius: 5px;
+  display: flex;
+  padding: 0.5rem;
+  background-color: var(--color-main-bg);
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.dtc-search label {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 0 0.5rem;
+  font-weight: bold;
+  background: var(--color-primary-blue);
+  cursor: pointer;
+  border-radius: 5px 0 0 5px;
+}
+
+.dtc-search-tooltip {
+  user-select: none;
+  cursor: default;
+  border-radius: 5px 0 5px 5px;
+  visibility: hidden;
+  opacity: 0;
+  background-color: var(--color-primary-white);
+  color: var(--color-primary-black);
+  text-align: center;
+  font-size: 0.65rem;
+  font-weight: normal;
+  padding: 0.5rem;
+  width: 120px;
+  top: 0;
+  right: 140%;
+  position: absolute;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+  transition: all 200ms ease;
+}
+
+.dtc-search-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -10px;
+  width: 10px;
+  height: 10px;
+  border-style: solid;
+  border-width: 10px 10px 0 0;
+  border-color: var(--color-primary-white) transparent transparent transparent;
+}
+
+.dtc-search label:hover .dtc-search-tooltip,
+.dtc-search:focus-within .dtc-search-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.dtc-search input {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  background-color: var(--color-header-input);
+  transition: background-color 200ms ease;
+  border-radius: 0 5px 5px 0;
+  text-transform: capitalize;
+}
+
+.dtc-search input:focus-visible {
+  outline: none;
+  background-color: var(--color-primary-white);
+}
+
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
+    transition: transform 250ms ease-in-out;
+  }
+
+  .dtc-search-tooltip {
+    top: 120%;
+    left: 50%;
+    border-radius: 0 5px 5px 5px;
+  }
+
+  .dtc-search-tooltip::after {
+    top: -15px;
+    left: 0;
+    border-width: 15px 0 0 15px;
+    border-color: transparent transparent transparent var(--color-primary-white);
+  }
+}

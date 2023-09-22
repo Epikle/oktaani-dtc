@@ -1,0 +1,33 @@
+.bubble {
+  border-radius: 5px 0 5px 5px;
+  padding: 0.75rem;
+  background-color: var(--color-primary-white);
+  position: relative;
+  width: fit-content;
+  font-size: 0.75rem;
+  cursor: pointer;
+  border: 1px solid var(--color-primary-white);
+  transition: background-color 200ms ease;
+}
+
+.bubble:hover {
+  background-color: var(--color-primary-blue);
+  border: 1px solid var(--color-primary-blue);
+}
+
+.bubble::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -10px;
+  width: 10px;
+  height: 10px;
+  border-style: solid;
+  border-width: 10px 10px 0 0;
+  border-color: var(--color-primary-white) transparent transparent transparent;
+  transition: all 200ms ease;
+}
+
+.bubble:hover::after {
+  border-color: var(--color-primary-blue) transparent transparent transparent;
+}
