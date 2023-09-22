@@ -8,13 +8,15 @@ import InfoBubble from './InfoBubble';
 export default function Header() {
   return (
     <header className={styles.header}>
-      <Image
-        src="logo.svg"
-        alt="oktaaniDTC Logo"
-        className={styles.logo}
-        width="226"
-        height="32"
-      />
+      <div>
+        <Image
+          src="logo.svg"
+          alt="oktaaniDTC Logo"
+          className={styles.logo}
+          width="226"
+          height="32"
+        />
+      </div>
 
       <form
         onSubmit={(event) => {
@@ -36,7 +38,9 @@ export default function Header() {
           maxLength={29}
         />
       </form>
-      <InfoBubble />
+      <div>
+        <InfoBubble />
+      </div>
     </header>
   );
 }

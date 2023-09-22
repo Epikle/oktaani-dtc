@@ -1,6 +1,10 @@
+import { Suspense } from 'react';
 import './reset.css';
 import './globals.css';
 import type { Metadata } from 'next';
+
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'oktaaniDTC',
@@ -14,7 +18,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div id="bubble" />
+        <Header />
+        <Suspense fallback="loading...">
+          <main>{children}</main>
+        </Suspense>
+        <Footer />
+      </body>
     </html>
   );
 }

@@ -24,6 +24,13 @@ type Code {
 
 type System {
   subCode String
-  title   String
+  title   Systems
   subName String
+}
+
+enum Systems {
+  Powertrain
+  Network
+  Body
+  Chassis
 }

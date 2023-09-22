@@ -7,11 +7,11 @@ export type Dtc = {
 export type Code = {
   title: string;
   description: string;
-  location: string;
+  location?: string;
 };
 
 export type System = {
   subCode: string;
-  title: string;
+  title: 'Powertrain' | 'Network' | 'Body' | 'Chassis';
   subName: string;
 };

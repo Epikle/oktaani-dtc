@@ -25,4 +25,31 @@ body {
   color: var(--color-primary-black);
   background-color: var(--color-main-bg);
   overflow-y: overlay;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex-grow: 1;
+  padding-inline: 2rem;
+}
+
+main h1 {
+  text-align: center;
+  width: max-content;
+  margin-inline: auto;
+  margin-bottom: 1.75rem;
+  color: var(--color-primary-white);
+  position: relative;
+}
+
+main h1:after {
+  content: attr(data-amount);
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.75rem;
+  color: var(--color-primary-blue);
 }

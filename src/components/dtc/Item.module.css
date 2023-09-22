@@ -1,0 +1,91 @@
+.article {
+  height: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+  background: var(--color-primary-white);
+  min-width: 12rem;
+  padding: 0.5rem 0.75rem 0 0.75rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.article h2 {
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.article h2 abbr {
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: help;
+}
+
+.article h2::first-letter {
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.article h2::first-letter {
+  color: var(--color-code);
+}
+
+.article div {
+  position: relative;
+}
+
+.article div::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--color-code);
+  background: linear-gradient(90deg, var(--color-code) 0%, #9381ff00 100%);
+}
+
+.article p {
+  flex: 1;
+  padding: 0.75rem 0;
+  font-family: var(--ff-code);
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.article button {
+  font-size: 0.7rem;
+  padding: 0.5rem 0;
+  margin: 0 -0.75rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  transition: background-color 200ms ease;
+  border-top: 1px dotted var(--color-main-bg);
+}
+
+.article button {
+  border-top: 1px dotted var(--color-code);
+}
+
+.article button:hover,
+.article button:focus-visible {
+  cursor: pointer;
+  outline: none;
+  border-top: 1px dotted var(--color-main-bg);
+  background-color: var(--color-code);
+}
