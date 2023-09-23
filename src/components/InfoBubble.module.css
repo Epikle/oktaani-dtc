@@ -9,6 +9,8 @@
   border: 1px solid var(--color-primary-white);
   transition: background-color 200ms ease;
   margin-left: auto;
+  text-decoration: none;
+  color: var(--color-primary-black);
 }
 
 .bubble:hover {
@@ -31,4 +33,10 @@
 
 .bubble:hover::after {
   border-color: var(--color-primary-blue) transparent transparent transparent;
+}
+
+@media (max-width: 600px) {
+  .bubble {
+    display: none;
+  }
 }

@@ -9,6 +9,7 @@ const prisma = new PrismaClient();
 
 export default async function Home() {
   let dtcData: Dtc[] | undefined;
+
   try {
     dtcData = await prisma.dtc.findMany({});
   } catch (error) {

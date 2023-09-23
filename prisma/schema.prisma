@@ -19,7 +19,7 @@ model Dtc {
 type Code {
   title       String
   description String
-  location    String
+  location    String?
 }
 
 type System {

@@ -7,7 +7,7 @@ export type Dtc = {
 export type Code = {
   title: string;
   description: string;
-  location?: string;
+  location: string | null;
 };
 
 export type System = {

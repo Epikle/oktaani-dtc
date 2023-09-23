@@ -53,3 +53,14 @@ main h1:after {
   font-size: 0.75rem;
   color: var(--color-primary-blue);
 }
+
+@media (max-width: 600px) {
+  main h1 {
+    font-size: 1.5rem;
+  }
+
+  main h1:after {
+    font-size: 0.5rem;
+    color: var(--color-primary-blue);
+  }
+}

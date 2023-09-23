@@ -1,3 +1,7 @@
+'use client';
+
+import { useSearchParams } from 'next/navigation';
+
 import Item from './Item';
 import { Dtc } from '@/types';
 
@@ -8,9 +12,20 @@ type Props = {
 };
 
 export default function List({ dtcData }: Props) {
+  const searchParams = useSearchParams();
+  const searchValue = searchParams.get('search');
+
+  const dtcsToShow = !searchValue
+    ? dtcData
+    : dtcData.filter((dtc) =>
+        searchValue
+          .trim()
+          .split(' ')
+          .some((w) => dtc.code.title.toLowerCase().startsWith(w.toLowerCase()))
+      );
   return (
     <ul className={styles['dtc-list']}>
-      {dtcData.map((dtc) => (
+      {dtcsToShow.map((dtc) => (
         <Item key={dtc.id} dtc={dtc} />
       ))}
     </ul>

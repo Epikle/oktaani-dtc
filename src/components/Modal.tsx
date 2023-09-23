@@ -1,12 +1,14 @@
+'use client';
+
+import { useCallback, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
 import styles from './Modal.module.css';
 
 type Props = {
-  show: boolean;
-  onCancel(): void;
-  header: string;
   children: React.ReactNode;
+  header: string;
   footer?: React.ReactNode;
-  style?: React.CSSProperties;
   className?: string;
   headerClass?: string;
   contentClass?: string;
@@ -14,23 +16,36 @@ type Props = {
 };
 
 export default function Modal({
-  show,
-  onCancel,
-  header,
   children,
+  header,
   footer,
   className,
-  style,
   headerClass,
   contentClass,
   footerClass,
 }: Props) {
-  if (!show) return null;
+  const router = useRouter();
+
+  const onDismiss = useCallback(() => {
+    router.back();
+  }, [router]);
+
+  const onKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onDismiss();
+    },
+    [onDismiss]
+  );
+
+  useEffect(() => {
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [onKeyDown]);
 
   return (
     <>
-      <div className={styles.backdrop} onClick={onCancel} />
-      <div className={[styles.modal, className].join(' ')} style={style}>
+      <div className={styles.backdrop} onClick={onDismiss} />
+      <div className={[styles.modal, className].join(' ')}>
         <header className={[styles.header, headerClass].join(' ')}>
           <h2>{header}</h2>
         </header>

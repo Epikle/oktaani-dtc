@@ -86,13 +86,28 @@
   border: none;
   background-color: var(--color-header-input);
   transition: background-color 200ms ease;
-  border-radius: 0 5px 5px 0;
   text-transform: capitalize;
 }
 
 .dtc-search input:focus-visible {
   outline: none;
   background-color: var(--color-primary-white);
+}
+
+.dtc-search button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 0 0.5rem;
+  font-weight: bold;
+  background: var(--color-primary-blue);
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+  border: 0;
+}
+
+.dtc-search button:hover {
+  opacity: 0.85;
 }
 
 @media (max-width: 600px) {

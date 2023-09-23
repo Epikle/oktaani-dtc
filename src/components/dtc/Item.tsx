@@ -3,8 +3,10 @@ import { CSSProperties } from 'react';
 import { Dtc, System } from '@/types';
 
 import styles from './Item.module.css';
+import { useRouter } from 'next/navigation';
 
 export default function Item({ dtc }: { dtc: Dtc }) {
+  const router = useRouter();
   const codeStyle: Record<System['title'], CSSProperties> = {
     Powertrain: { '--color-code': 'var(--color-code-p)' } as CSSProperties,
     Network: { '--color-code': 'var(--color-code-u)' } as CSSProperties,
@@ -23,7 +25,9 @@ export default function Item({ dtc }: { dtc: Dtc }) {
         </div>
 
         <p>{dtc.code.description}</p>
-        <button>More info</button>
+        <button onClick={() => router.push('/dtc/code', { scroll: false })}>
+          More info
+        </button>
       </article>
     </li>
   );

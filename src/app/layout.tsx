@@ -1,7 +1,8 @@
 import { Suspense } from 'react';
+import type { Metadata } from 'next';
+
 import './reset.css';
 import './globals.css';
-import type { Metadata } from 'next';
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -13,13 +14,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html lang="en">
       <body>
-        <div id="bubble" />
+        {modal}
         <Header />
         <Suspense fallback="loading...">
           <main>{children}</main>
