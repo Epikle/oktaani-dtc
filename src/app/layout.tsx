@@ -24,9 +24,7 @@ export default function RootLayout({
       <body>
         {modal}
         <Header />
-        <Suspense fallback="loading...">
-          <main>{children}</main>
-        </Suspense>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect } from 'react';
+import { CSSProperties, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import styles from './Modal.module.css';
@@ -8,7 +8,7 @@ import styles from './Modal.module.css';
 type Props = {
   children: React.ReactNode;
   header: string;
-  footer?: React.ReactNode;
+  style?: CSSProperties;
   className?: string;
   headerClass?: string;
   contentClass?: string;
@@ -18,7 +18,7 @@ type Props = {
 export default function Modal({
   children,
   header,
-  footer,
+  style,
   className,
   headerClass,
   contentClass,
@@ -46,14 +46,17 @@ export default function Modal({
     <>
       <div className={styles.backdrop} onClick={onDismiss} />
       <div className={[styles.modal, className].join(' ')}>
-        <header className={[styles.header, headerClass].join(' ')}>
+        <header
+          className={[styles.header, headerClass].join(' ')}
+          style={style}
+        >
           <h2>{header}</h2>
         </header>
         <div className={[styles.content, contentClass].join(' ')}>
           {children}
         </div>
         <footer className={[styles.footer, footerClass].join(' ')}>
-          {footer}
+          <button onClick={() => router.back()}>Close</button>
         </footer>
       </div>
     </>

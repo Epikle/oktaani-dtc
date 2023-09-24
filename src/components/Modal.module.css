@@ -12,34 +12,19 @@
 
 .header {
   width: 100%;
-  padding: 0 0.5rem;
+  padding: 0.5rem;
   background: var(--color-primary-blue);
+  background: linear-gradient(
+    90deg,
+    var(--color-code, var(--color-primary-blue)) 0%,
+    #9381ff00 100%
+  );
   box-shadow: none;
   margin-bottom: 0rem;
 }
 
-.header.p-code {
-  background: var(--color-code-p);
-  background: linear-gradient(90deg, var(--color-code-p) 0%, #9381ff00 100%);
-}
-
-.header.u-code {
-  background: var(--color-code-u);
-  background: linear-gradient(90deg, var(--color-code-u) 0%, #9381ff00 100%);
-}
-
-.header.b-code {
-  background: var(--color-code-b);
-  background: linear-gradient(90deg, var(--color-code-b) 0%, #9381ff00 100%);
-}
-
-.header.c-code {
-  background: var(--color-code-c);
-  background: linear-gradient(90deg, var(--color-code-c) 0%, #9381ff00 100%);
-}
-
 .header h2 {
-  margin: 0.5rem;
+  margin-block: 0;
 }
 
 .header h2 span {
@@ -49,6 +34,10 @@
 
 .content {
   padding: 1rem 0.75rem;
+}
+
+.content p + p {
+  margin-top: 1rem;
 }
 
 .footer {

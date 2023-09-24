@@ -1,17 +1,14 @@
-import { PrismaClient } from '@prisma/client';
-
 import NotFound from '@/components/dtc/NotFound';
 import DtcError from '@/components/dtc/Error';
 import List from '@/components/dtc/List';
 import { Dtc } from '@/types';
-
-const prisma = new PrismaClient();
+import { db } from '@/lib/db';
 
 export default async function Home() {
   let dtcData: Dtc[] | undefined;
 
   try {
-    dtcData = await prisma.dtc.findMany({});
+    dtcData = await db.dtc.findMany({});
   } catch (error) {
     return (
       <>

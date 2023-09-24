@@ -25,7 +25,11 @@ export default function Item({ dtc }: { dtc: Dtc }) {
         </div>
 
         <p>{dtc.code.description}</p>
-        <button onClick={() => router.push('/dtc/code', { scroll: false })}>
+        <button
+          onClick={() =>
+            router.push(`/dtc/${dtc.code.title}`, { scroll: false })
+          }
+        >
           More info
         </button>
       </article>
