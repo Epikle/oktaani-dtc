@@ -23,6 +23,7 @@ export default function List({ dtcData }: Props) {
           .split(' ')
           .some((w) => dtc.code.title.toLowerCase().startsWith(w.toLowerCase()))
       );
+
   return (
     <ul className={styles['dtc-list']}>
       {dtcsToShow.map((dtc) => (
