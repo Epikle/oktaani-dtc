@@ -41,8 +41,25 @@
 }
 
 .footer {
-  padding: 1rem 0.5rem;
+  padding: 1rem 3rem;
   margin: 0;
+  text-align: center;
+  display: grid;
+}
+
+.footer button {
+  all: unset;
+  cursor: pointer;
+  border: 1px solid var(--color-primary-blue);
+  padding: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.footer button:hover,
+.footer button:focus-visible {
+  background-color: var(--color-primary-blue);
 }
 
 @media (min-width: 768px) {

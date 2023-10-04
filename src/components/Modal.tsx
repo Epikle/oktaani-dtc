@@ -7,7 +7,7 @@ import styles from './Modal.module.css';
 
 type Props = {
   children: React.ReactNode;
-  header: string;
+  header?: string;
   style?: CSSProperties;
   className?: string;
   headerClass?: string;

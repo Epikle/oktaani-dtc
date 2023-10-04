@@ -1,0 +1,5 @@
+.container {
+  color: var(--color-primary-white);
+  max-width: 54rem;
+  margin-inline: auto;
+}

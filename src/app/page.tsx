@@ -8,7 +8,7 @@ export default async function Home() {
   let dtcData: Dtc[] | undefined;
 
   try {
-    dtcData = await db.dtc.findMany({});
+    dtcData = await db.dtc.findMany({ skip: 0, take: 10 });
   } catch (error) {
     return (
       <>
