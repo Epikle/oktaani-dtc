@@ -1,8 +1,9 @@
-import { Dtc, System } from '@/types';
+import { CSSProperties } from 'react';
 import Link from 'next/link';
 
+import { Dtc, System } from '@/types';
+
 import styles from './Code.module.css';
-import { CSSProperties } from 'react';
 
 export default async function Code({
   dtc,
