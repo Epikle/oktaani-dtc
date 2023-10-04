@@ -4,11 +4,28 @@ import List from '@/components/dtc/List';
 import { Dtc } from '@/types';
 import { db } from '@/lib/db';
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { s?: string };
+}) {
   let dtcData: Dtc[] | undefined;
+  const searchTerms = searchParams.s?.split(' ');
+
+  const whereClauses = searchTerms
+    ? {
+        OR: searchTerms.map((term) => ({
+          code: { is: { title: { contains: term.toUpperCase() } } },
+        })),
+      }
+    : {};
 
   try {
-    dtcData = await db.dtc.findMany({ skip: 0, take: 10 });
+    dtcData = await db.dtc.findMany({
+      where: whereClauses,
+      skip: 0,
+      take: 10,
+    });
   } catch (error) {
     return (
       <>

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import InfoBubble from './InfoBubble';
 
@@ -10,6 +11,7 @@ import styles from './Header.module.css';
 
 export default function Header() {
   const [search, setSearch] = useState('');
+  const router = useRouter();
 
   return (
     <header className={styles.header}>
@@ -29,7 +31,7 @@ export default function Header() {
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          console.log('submit');
+          router.push(`?s=${search}`);
         }}
         className={styles['dtc-search']}
       >
@@ -45,10 +47,9 @@ export default function Header() {
           id="search"
           placeholder="Search for DTC's"
           maxLength={29}
-          onChange={(event) => {
-            setSearch(event.target.value);
-          }}
+          onChange={(event) => setSearch(event.target.value)}
           value={search}
+          spellCheck={false}
         />
         <button type="submit" disabled={!search}>
           <span className="material-icons">search</span>

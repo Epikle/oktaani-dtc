@@ -1,9 +1,11 @@
+'use client';
+
 import { CSSProperties } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { Dtc, System } from '@/types';
 
 import styles from './Item.module.css';
-import { useRouter } from 'next/navigation';
 
 export default function Item({ dtc }: { dtc: Dtc }) {
   const router = useRouter();
