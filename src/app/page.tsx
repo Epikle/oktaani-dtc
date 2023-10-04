@@ -10,6 +10,7 @@ export default async function Home({
   searchParams: { s?: string };
 }) {
   let dtcData: Dtc[] | undefined;
+  let dtcTotalCount = 0;
   const searchTerms = searchParams.s?.split(' ');
 
   const whereClauses = searchTerms
@@ -21,11 +22,14 @@ export default async function Home({
     : {};
 
   try {
-    dtcData = await db.dtc.findMany({
-      where: whereClauses,
-      skip: 0,
-      take: 10,
-    });
+    [dtcData, dtcTotalCount] = await db.$transaction([
+      db.dtc.findMany({
+        where: whereClauses,
+        skip: 0,
+        take: 100,
+      }),
+      db.dtc.count(),
+    ]);
   } catch (error) {
     return (
       <>
@@ -37,9 +41,7 @@ export default async function Home({
 
   return (
     <>
-      <h1 data-amount={dtcData ? dtcData.length : ''}>
-        Diagnostic Trouble Codes
-      </h1>
+      <h1 data-amount={dtcTotalCount}>Diagnostic Trouble Codes</h1>
       {dtcData && dtcData.length > 0 ? (
         <List dtcData={dtcData} />
       ) : (
