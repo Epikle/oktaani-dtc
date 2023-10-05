@@ -1,7 +1,6 @@
 import { CSSProperties } from 'react';
 import Link from 'next/link';
-
-import { Dtc, System } from '@/types';
+import { Dtc, Systems } from '@prisma/client';
 
 import styles from './Code.module.css';
 
@@ -20,7 +19,7 @@ export default async function Code({
       </div>
     );
 
-  const codeStyle: Record<System['title'], CSSProperties> = {
+  const codeStyle: Record<Systems, CSSProperties> = {
     Powertrain: { '--color-code': 'var(--color-code-p)' } as CSSProperties,
     Network: { '--color-code': 'var(--color-code-u)' } as CSSProperties,
     Chassis: { '--color-code': 'var(--color-code-c)' } as CSSProperties,
@@ -29,19 +28,19 @@ export default async function Code({
 
   return (
     <div className={className}>
-      <h1 className={styles.header} style={codeStyle[dtc.system.title]}>
-        {dtc.code.title} <span>{dtc.system.title}</span>
+      <h1 className={styles.header} style={codeStyle[dtc.systemTitle]}>
+        {dtc.codeTitle} <span>{dtc.systemTitle}</span>
       </h1>
       <ul className={styles.list}>
         <li>
           <span>Subsystem</span>
           <span>
-            {dtc.system.subName} ({dtc.system.subCode})
+            {dtc.systemName} ({dtc.systemCode})
           </span>
         </li>
         <li>
           <span>Code Description</span>
-          <span>{dtc.code.description}</span>
+          <span>{dtc.codeDescription}</span>
         </li>
       </ul>
     </div>

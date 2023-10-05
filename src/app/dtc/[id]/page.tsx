@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 
   return {
     title: `${params.id} | oktaaniDTC`,
-    description: dtcData?.code.description,
+    description: dtcData?.codeDescription,
   };
 }
 

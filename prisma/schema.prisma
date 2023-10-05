@@ -1,31 +1,23 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_PRISMA_URL") // uses connection pooling
+  directUrl = env("DATABASE_URL_NON_POOLING") // uses a direct connection
 }
 
 model Dtc {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  code   Code
-  system System
-}
-
-type Code {
-  title       String
-  description String
-  location    String?
-}
-
-type System {
-  subCode String
-  title   Systems
-  subName String
+  id              String  @id @default(cuid())
+  codeTitle       String  @unique
+  codeDescription String
+  codeLocation    String?
+  systemCode      String
+  systemTitle     Systems
+  systemName      String
+  views           Int     @default(0)
+  gptInfo         String?
 }
 
 enum Systems {

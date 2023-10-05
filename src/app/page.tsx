@@ -1,8 +1,8 @@
 import NotFound from '@/components/dtc/NotFound';
 import DtcError from '@/components/dtc/Error';
 import List from '@/components/dtc/List';
-import { Dtc } from '@/types';
 import { db } from '@/lib/db';
+import { Dtc } from '@prisma/client';
 
 export default async function Home({
   searchParams,
@@ -16,7 +16,7 @@ export default async function Home({
   const whereClauses = searchTerms
     ? {
         OR: searchTerms.map((term) => ({
-          code: { is: { title: { contains: term.toUpperCase() } } },
+          codeTitle: { contains: term.toUpperCase() },
         })),
       }
     : {};
@@ -27,6 +27,7 @@ export default async function Home({
         where: whereClauses,
         skip: 0,
         take: 100,
+        orderBy: { views: 'desc' },
       }),
       db.dtc.count(),
     ]);

@@ -1,12 +1,18 @@
 'use server';
 
 import { db } from '@/lib/db';
-import { Dtc } from '@/types';
 
-export async function getDtcData(id: string): Promise<Dtc | null> {
+export async function getDtcData(codeTitle: string) {
   const codeData = await db.dtc.findFirst({
-    where: { code: { is: { title: id } } },
+    where: { codeTitle },
   });
+
+  if (codeData) {
+    await db.dtc.update({
+      where: { id: codeData.id },
+      data: { views: { increment: 1 } },
+    });
+  }
 
   return codeData;
 }
