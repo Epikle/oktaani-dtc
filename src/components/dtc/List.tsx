@@ -1,16 +1,18 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useIntersection } from '@mantine/hooks';
+
 import Item from './Item';
+import Loading from './Loading';
+import NotFound from './NotFound';
+import Error from './Error';
 
 import styles from './List.module.css';
-import NotFound from './NotFound';
-import { useEffect, useRef } from 'react';
-import Loading from './Loading';
 
 export default function List({ search }: { search?: string }) {
-  const { data, isLoading, fetchNextPage } = useInfiniteQuery({
+  const { data, isLoading, isError, fetchNextPage } = useInfiniteQuery({
     queryKey: ['dtcList', search],
     queryFn: async ({ pageParam }) => {
       const params = new URLSearchParams([
@@ -36,6 +38,7 @@ export default function List({ search }: { search?: string }) {
   }, [entry, fetchNextPage]);
 
   if (isLoading) return <Loading />;
+  if (isError) return <Error error="Something went wrong, try again." />;
   if (!dtcData || dtcData?.length === 0) return <NotFound />;
 
   return (
