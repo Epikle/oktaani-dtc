@@ -7,6 +7,7 @@ import Item from './Item';
 import styles from './List.module.css';
 import NotFound from './NotFound';
 import { useEffect, useRef } from 'react';
+import Loading from './Loading';
 
 export default function List({ search }: { search?: string }) {
   const { data, isLoading, fetchNextPage } = useInfiniteQuery({
@@ -34,7 +35,7 @@ export default function List({ search }: { search?: string }) {
     }
   }, [entry, fetchNextPage]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loading />;
   if (!dtcData || dtcData?.length === 0) return <NotFound />;
 
   return (
