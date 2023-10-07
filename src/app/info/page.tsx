@@ -11,10 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return (
-    <>
-      <h1>More about DTCs</h1>
-      <Info className={styles.container} />
-    </>
-  );
+  return <Info className={styles.container} />;
 }

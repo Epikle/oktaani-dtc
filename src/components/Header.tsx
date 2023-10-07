@@ -1,9 +1,9 @@
 'use client';
 
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Search } from 'lucide-react';
 
 import InfoBubble from './InfoBubble';
@@ -13,6 +13,9 @@ import styles from './Header.module.css';
 export default function Header() {
   const [search, setSearch] = useState('');
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const code = searchParams.get('s');
 
   const inputHandler = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.value) {
@@ -23,6 +26,12 @@ export default function Header() {
 
     setSearch(event.target.value);
   };
+
+  useEffect(() => {
+    if (pathname === '/' && !code) {
+      setSearch('');
+    }
+  }, [code, pathname]);
 
   return (
     <header className={styles.header}>

@@ -23,9 +23,9 @@ export default async function Code({ dtc, className }: { dtc: Dtc | null; classN
 
   return (
     <div className={className}>
-      <h1 className={styles.header} style={codeStyle[dtc.systemTitle]}>
+      <h2 className={styles.header} style={codeStyle[dtc.systemTitle]}>
         {dtc.codeTitle} <span>{dtc.systemTitle}</span>
-      </h1>
+      </h2>
       <ul className={styles.list}>
         <li>
           <span>Subsystem</span>

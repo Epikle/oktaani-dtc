@@ -7,7 +7,6 @@ import styles from './Modal.module.css';
 
 type Props = {
   children: React.ReactNode;
-  header?: string;
   style?: CSSProperties;
   className?: string;
   headerClass?: string;
@@ -15,15 +14,7 @@ type Props = {
   footerClass?: string;
 };
 
-export default function Modal({
-  children,
-  header,
-  style,
-  className,
-  headerClass,
-  contentClass,
-  footerClass,
-}: Props) {
+export default function Modal({ children, style, className, headerClass, contentClass, footerClass }: Props) {
   const router = useRouter();
 
   const onDismiss = useCallback(() => {
@@ -45,19 +36,14 @@ export default function Modal({
   return (
     <>
       <div className={styles.backdrop} onClick={onDismiss} />
-      <div className={[styles.modal, className].join(' ')}>
-        <header
-          className={[styles.header, headerClass].join(' ')}
-          style={style}
-        >
-          <h2>{header}</h2>
-        </header>
-        <div className={[styles.content, contentClass].join(' ')}>
-          {children}
+      <div className={styles['modal-container']}>
+        <div className={[styles.modal, className].join(' ')}>
+          <header className={[styles.header, headerClass].join(' ')} style={style} />
+          <div className={[styles.content, contentClass].join(' ')}>{children}</div>
+          <footer className={[styles.footer, footerClass].join(' ')}>
+            <button onClick={() => router.back()}>Close</button>
+          </footer>
         </div>
-        <footer className={[styles.footer, footerClass].join(' ')}>
-          <button onClick={() => router.back()}>Close</button>
-        </footer>
       </div>
     </>
   );

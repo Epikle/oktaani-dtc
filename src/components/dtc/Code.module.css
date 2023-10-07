@@ -3,11 +3,7 @@
   padding: 0.75rem 2rem;
   margin: -1rem;
   background: var(--color-primary-blue);
-  background: linear-gradient(
-    90deg,
-    var(--color-code, var(--color-primary-blue)) 0%,
-    #9381ff00 100%
-  );
+  background: linear-gradient(90deg, var(--color-code, var(--color-primary-blue)) 0%, #9381ff00 100%);
 }
 
 .header span {
@@ -19,7 +15,7 @@
   list-style: none;
   margin-inline: 2rem;
   padding: 0;
-  padding-top: 1rem;
+  padding-top: 0.5rem;
 }
 
 .list li {
@@ -30,4 +26,10 @@
 .list li span:first-child {
   font-weight: bold;
   border-bottom: 1px dotted gray;
+}
+
+@media (max-width: 768px) {
+  .list {
+    margin-inline: 0.5rem;
+  }
 }

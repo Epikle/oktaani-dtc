@@ -7,3 +7,12 @@
   margin: 0 auto;
   list-style: none;
 }
+
+@media (max-width: 600px) {
+  .dtc-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    width: 100%;
+  }
+}

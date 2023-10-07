@@ -2,25 +2,21 @@
   color: var(--color-primary-white);
 }
 
-.container div h1 {
+.container div h2 {
   background: none;
   position: relative;
 }
 
-.container div h1::after {
+.container div h2::after {
   content: '';
   position: absolute;
   inset: 0;
   top: auto;
   height: 3px;
   background: var(--color-primary-blue);
-  background: linear-gradient(
-    90deg,
-    var(--color-code, var(--color-primary-blue)) 0%,
-    #9381ff00 100%
-  );
+  background: linear-gradient(90deg, var(--color-code, var(--color-primary-blue)) 0%, #9381ff00 100%);
 }
 
-.container div h1 span {
+.container div h2 span {
   color: white;
 }

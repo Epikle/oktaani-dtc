@@ -1,39 +1,28 @@
 .modal {
-  z-index: 100;
+  z-index: 50;
   position: fixed;
-  top: 10vh;
-  left: 10%;
-  width: 80%;
+  top: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
   background: var(--color-primary-white);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 5px;
-  overflow: hidden;
+  overflow-y: auto;
+  max-height: 95%;
+  width: 95%;
 }
 
 .header {
+  position: sticky;
+  top: 0;
   width: 100%;
-  padding: 0.5rem;
+  height: 1rem;
   background: var(--color-primary-blue);
-  background: linear-gradient(
-    90deg,
-    var(--color-code, var(--color-primary-blue)) 0%,
-    #9381ff00 100%
-  );
-  box-shadow: none;
-  margin-bottom: 0rem;
-}
-
-.header h2 {
-  margin-block: 0;
-}
-
-.header h2 span {
-  font-size: 1rem;
-  color: var(--color-main-bg);
+  background: linear-gradient(90deg, var(--color-code, var(--color-primary-blue)) 0%, #9381ff00 100%);
 }
 
 .content {
-  padding: 1rem 0.75rem;
+  padding: 1rem;
 }
 
 .content p + p {
@@ -62,16 +51,21 @@
   background-color: var(--color-primary-blue);
 }
 
-@media (min-width: 768px) {
-  .modal {
-    left: calc(50% - 20rem);
-    width: 40rem;
-  }
-}
-
 .backdrop {
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.75);
   z-index: 10;
+}
+
+@media (min-width: 768px) {
+  .modal {
+    width: 40rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal {
+    top: 1rem;
+  }
 }

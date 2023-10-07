@@ -19,7 +19,10 @@ export default function RootLayout({ children, modal }: { children: React.ReactN
         <Providers>
           {modal}
           <Header />
-          <main>{children}</main>
+          <main>
+            <h1>Diagnostic Trouble Codes</h1>
+            {children}
+          </main>
           <Footer />
         </Providers>
       </body>
