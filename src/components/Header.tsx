@@ -1,18 +1,28 @@
 'use client';
 
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { Search } from 'lucide-react';
 
 import InfoBubble from './InfoBubble';
 
 import styles from './Header.module.css';
-import { Search } from 'lucide-react';
 
 export default function Header() {
   const [search, setSearch] = useState('');
   const router = useRouter();
+
+  const inputHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.value) {
+      setSearch('');
+      router.push('/');
+      return;
+    }
+
+    setSearch(event.target.value);
+  };
 
   return (
     <header className={styles.header}>
@@ -48,7 +58,7 @@ export default function Header() {
           id="search"
           placeholder="Search for DTC's"
           maxLength={29}
-          onChange={(event) => setSearch(event.target.value)}
+          onChange={inputHandler}
           value={search}
           spellCheck={false}
         />
