@@ -5,9 +5,10 @@ import { db } from '@/lib/db';
 import { openai } from '@/lib/openai';
 
 function generatePrompt(code: string) {
-  return `Please provide a brief explanation of the following car diagnostic trouble code. 
-  If you don't know what it means or if the code is not a proper diagnostic trouble code, 
-  please respond with 'no explanation found', don't try to make up an answer. 
+  return `Please provide a brief explanation for the car diagnostic trouble code listed after "Code:" at the end. 
+  If the code ends with an alphabet character, please disregard it. 
+  If you are unsure of its meaning or if the code does not conform to a proper diagnostic trouble code, 
+  kindly respond with 'no explanation found' instead of attempting to provide an inaccurate response. 
   Code: ${code}`;
 }
 
