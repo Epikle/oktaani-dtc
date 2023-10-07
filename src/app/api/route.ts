@@ -14,7 +14,6 @@ export async function GET(req: NextRequest) {
               OR: searchTerms.map((term) => ({
                 codeTitle: {
                   equals: term,
-                  mode: 'insensitive',
                 },
               })),
             }

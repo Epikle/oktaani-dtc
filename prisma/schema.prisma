@@ -17,7 +17,7 @@ model Dtc {
   systemTitle     Systems
   systemName      String
   views           Int     @default(0)
-  gptInfo         String?
+  gptInfo         String? @db.Text
 }
 
 enum Systems {
