@@ -3,7 +3,7 @@ import Info from '@/components/dtc/Info';
 
 export default function Page() {
   return (
-    <Modal header="More about DTCs">
+    <Modal>
       <Info />
     </Modal>
   );
