@@ -6,4 +6,4 @@
 
 [Old version](https://github.com/Epikle/oktaani-dtc/tree/old-main)
 
-WIP...
+![Preview of oktaaniDTC](oktaani-dtc-preview.png)
