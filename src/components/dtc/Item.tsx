@@ -1,12 +1,12 @@
 'use client';
 
-import { CSSProperties } from 'react';
+import { CSSProperties, forwardRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dtc, Systems } from '@prisma/client';
 
 import styles from './Item.module.css';
 
-export default function Item({ dtc }: { dtc: Dtc }) {
+const Item = forwardRef<HTMLLIElement, { dtc: Dtc }>(({ dtc }, ref) => {
   const router = useRouter();
   const codeStyle: Record<Systems, CSSProperties> = {
     Powertrain: { '--color-code': 'var(--color-code-p)' } as CSSProperties,
@@ -16,7 +16,7 @@ export default function Item({ dtc }: { dtc: Dtc }) {
   };
 
   return (
-    <li>
+    <li ref={ref}>
       <article className={styles.article} style={codeStyle[dtc.systemTitle]}>
         <div>
           <h2>
@@ -26,14 +26,12 @@ export default function Item({ dtc }: { dtc: Dtc }) {
         </div>
 
         <p>{dtc.codeDescription}</p>
-        <button
-          onClick={() =>
-            router.push(`/dtc/${dtc.codeTitle}`, { scroll: false })
-          }
-        >
-          More info
-        </button>
+        <button onClick={() => router.push(`/dtc/${dtc.codeTitle}`, { scroll: false })}>More info</button>
       </article>
     </li>
   );
-}
+});
+
+Item.displayName = 'Item';
+
+export default Item;

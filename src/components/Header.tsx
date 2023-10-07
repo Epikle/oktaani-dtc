@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import InfoBubble from './InfoBubble';
 
 import styles from './Header.module.css';
+import { Search } from 'lucide-react';
 
 export default function Header() {
   const [search, setSearch] = useState('');
@@ -52,7 +53,7 @@ export default function Header() {
           spellCheck={false}
         />
         <button type="submit" disabled={!search}>
-          <span className="material-icons">search</span>
+          <Search />
         </button>
       </form>
       <div>

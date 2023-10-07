@@ -10,7 +10,9 @@ export async function getDtcData(codeTitle: string) {
   if (codeData) {
     await db.dtc.update({
       where: { id: codeData.id },
-      data: { views: { increment: 1 } },
+      data: {
+        views: { increment: 1 },
+      },
     });
   }
 

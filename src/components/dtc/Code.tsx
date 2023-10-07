@@ -1,16 +1,11 @@
-import { CSSProperties } from 'react';
+import { CSSProperties, Suspense } from 'react';
 import Link from 'next/link';
 import { Dtc, Systems } from '@prisma/client';
 
 import styles from './Code.module.css';
+import { Explanation } from './Explanation';
 
-export default async function Code({
-  dtc,
-  className,
-}: {
-  dtc: Dtc | null;
-  className?: string;
-}) {
+export default async function Code({ dtc, className }: { dtc: Dtc | null; className?: string }) {
   if (!dtc)
     return (
       <div className={className}>
@@ -41,6 +36,12 @@ export default async function Code({
         <li>
           <span>Code Description</span>
           <span>{dtc.codeDescription}</span>
+        </li>
+        <li>
+          <span>ChatGPT Explanation</span>
+          <span>
+            <Explanation code={dtc.codeTitle} />
+          </span>
         </li>
       </ul>
     </div>

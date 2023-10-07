@@ -1,0 +1,17 @@
+.loader {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.spin {
+  width: 1rem;
+  aspect-ratio: 1;
+  color: var(--color-primary-blue);
+  animation: spin 1000ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
