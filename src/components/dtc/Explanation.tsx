@@ -4,11 +4,20 @@ import { useQuery } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
 
 import styles from './Explanation.module.css';
+import { addGPTData, getDtcData } from '@/app/dtc/[id]/actions';
 
 export function Explanation({ code }: { code: string }) {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['listing', code],
-    queryFn: async () => await (await fetch(`/api/${code}`)).json(),
+    queryFn: async () => {
+      const dtcData = await getDtcData(code);
+
+      if (dtcData?.gptInfo) return dtcData.gptInfo;
+
+      const { message } = await (await fetch(`${process.env.NEXT_PUBLIC_GPT_API_URL}/?codeTitle=${code}`)).json();
+      await addGPTData({ codeTitle: code, gptInfo: message });
+      return message;
+    },
   });
 
   if (isError) return <p>Error, please try again later.</p>;

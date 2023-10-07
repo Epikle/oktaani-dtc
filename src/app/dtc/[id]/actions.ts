@@ -7,14 +7,23 @@ export async function getDtcData(codeTitle: string) {
     where: { codeTitle },
   });
 
-  if (codeData) {
-    await db.dtc.update({
-      where: { id: codeData.id },
-      data: {
-        views: { increment: 1 },
-      },
-    });
-  }
-
   return codeData;
+}
+
+export async function updateDtcViews(codeTitle: string) {
+  await db.dtc.update({
+    where: { codeTitle },
+    data: {
+      views: { increment: 1 },
+    },
+  });
+}
+
+export async function addGPTData({ codeTitle, gptInfo }: { codeTitle: string; gptInfo: string }) {
+  await db.dtc.update({
+    where: { codeTitle },
+    data: {
+      gptInfo,
+    },
+  });
 }
