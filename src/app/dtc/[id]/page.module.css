@@ -20,3 +20,11 @@
 .container div h2 span {
   color: white;
 }
+
+.container div {
+  text-align: center;
+}
+
+.container a {
+  color: var(--color-primary-white);
+}

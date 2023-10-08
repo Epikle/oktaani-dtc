@@ -1,18 +1,12 @@
-import { CSSProperties, Suspense } from 'react';
-import Link from 'next/link';
+import { CSSProperties } from 'react';
 import { Dtc, Systems } from '@prisma/client';
 
 import styles from './Code.module.css';
 import { Explanation } from './Explanation';
+import { notFound } from 'next/navigation';
 
 export default async function Code({ dtc, className }: { dtc: Dtc | null; className?: string }) {
-  if (!dtc)
-    return (
-      <div className={className}>
-        <h1>Not Found!</h1>
-        <Link href="/">Go back to homepage.</Link>
-      </div>
-    );
+  if (!dtc) return notFound();
 
   const codeStyle: Record<Systems, CSSProperties> = {
     Powertrain: { '--color-code': 'var(--color-code-p)' } as CSSProperties,
@@ -33,12 +27,18 @@ export default async function Code({ dtc, className }: { dtc: Dtc | null; classN
             {dtc.systemName} ({dtc.systemCode})
           </span>
         </li>
+        {dtc.codeLocation && (
+          <li>
+            <span>Location</span>
+            <span>{dtc.codeLocation}</span>
+          </li>
+        )}
         <li>
-          <span>Code Description</span>
+          <span>Description</span>
           <span>{dtc.codeDescription}</span>
         </li>
         <li>
-          <span>ChatGPT Explanation</span>
+          <span>AI Explanation</span>
           <span>
             <Explanation code={dtc.codeTitle} />
           </span>
