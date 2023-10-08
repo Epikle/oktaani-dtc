@@ -1,0 +1,10 @@
+.not-found {
+  color: var(--color-primary-white);
+  text-align: center;
+}
+
+.not-found a {
+  display: block;
+  margin-top: 2rem;
+  color: var(--color-primary-white);
+}
