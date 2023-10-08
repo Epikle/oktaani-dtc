@@ -3,18 +3,20 @@
 import { useQuery } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
 
-import styles from './Explanation.module.css';
 import { addGPTData, getDtcData } from '@/app/dtc/[id]/actions';
+
+import styles from './Explanation.module.css';
 
 export function Explanation({ code }: { code: string }) {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['listing', code],
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       const dtcData = await getDtcData(code);
 
       if (dtcData?.gptInfo) return dtcData.gptInfo;
-
-      const { message } = await (await fetch(`${process.env.NEXT_PUBLIC_GPT_API_URL}/?codeTitle=${code}`)).json();
+      const { message } = await (
+        await fetch(`${process.env.NEXT_PUBLIC_GPT_API_URL}/?codeTitle=${code}`, { signal })
+      ).json();
       await addGPTData({ codeTitle: code, gptInfo: message });
       return message;
     },
@@ -30,7 +32,7 @@ export function Explanation({ code }: { code: string }) {
     );
 
   if (!data || data.toLowerCase().includes('no explanation found')) {
-    return <p>No explanation found for this code, sorry.</p>;
+    return <p>Unfortunately, we couldn&apos;t generate an explanation for this code.</p>;
   }
 
   return <p>{data}</p>;
