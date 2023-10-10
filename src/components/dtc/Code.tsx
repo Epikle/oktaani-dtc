@@ -4,6 +4,7 @@ import { Dtc, Systems } from '@prisma/client';
 import styles from './Code.module.css';
 import { Explanation } from './Explanation';
 import { notFound } from 'next/navigation';
+import { Book, BrainCog, Car, LocateFixed } from 'lucide-react';
 
 export default async function Code({ dtc, className }: { dtc: Dtc | null; className?: string }) {
   if (!dtc) return notFound();
@@ -22,25 +23,33 @@ export default async function Code({ dtc, className }: { dtc: Dtc | null; classN
       </h2>
       <ul className={styles.list}>
         <li>
-          <span>Subsystem</span>
+          <span>
+            <Car /> Subsystem
+          </span>
           <span>
             {dtc.systemName} ({dtc.systemCode})
           </span>
         </li>
         {dtc.codeLocation && (
           <li>
-            <span>Location</span>
+            <span>
+              <LocateFixed /> Location
+            </span>
             <span>{dtc.codeLocation}</span>
           </li>
         )}
         <li>
-          <span>Description</span>
+          <span>
+            <Book /> Description
+          </span>
           <span>{dtc.codeDescription}</span>
         </li>
         <li>
-          <span>AI Explanation</span>
           <span>
-            <Explanation code={dtc.codeTitle} />
+            <BrainCog /> AI Explanation
+          </span>
+          <span>
+            <Explanation code={dtc.codeTitle} description={dtc.codeDescription} />
           </span>
         </li>
       </ul>

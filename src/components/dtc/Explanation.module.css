@@ -15,3 +15,21 @@
     rotate: 360deg;
   }
 }
+
+.ai {
+  display: grid;
+  gap: 1rem;
+}
+
+.explanation {
+  display: flex;
+  gap: 0.5rem;
+  color: gray;
+  font-size: 0.75rem;
+}
+
+.explanation svg {
+  width: 3rem;
+  aspect-ratio: 1;
+  color: gray;
+}
