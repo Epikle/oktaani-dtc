@@ -5,3 +5,12 @@
   font-size: 0.75rem;
   user-select: none;
 }
+
+.footer a {
+  all: unset;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
