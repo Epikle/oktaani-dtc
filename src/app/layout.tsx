@@ -10,6 +10,7 @@ import Providers from '../components/Providers';
 export const metadata: Metadata = {
   title: 'oktaaniDTC',
   description: 'A page to help understand diagnostic trouble codes (DTCs).',
+  metadataBase: new URL('https://oktaani-dtc.vercel.app'),
 };
 
 export default function RootLayout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
