@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/react';
 
 import './reset.css';
 import './globals.css';
@@ -26,6 +27,7 @@ export default function RootLayout({ children, modal }: { children: React.ReactN
           </main>
           <Footer />
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
