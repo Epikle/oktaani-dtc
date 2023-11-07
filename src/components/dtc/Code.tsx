@@ -1,14 +1,18 @@
 import { CSSProperties } from 'react';
 import { notFound } from 'next/navigation';
+import { getServerSession } from 'next-auth/next';
 import { Dtc, Systems } from '@prisma/client';
 import { BarChart3, Book, BrainCog, Car, LocateFixed } from 'lucide-react';
 
+import { resetGPTData } from '@/app/dtc/[id]/actions';
+import { authOptions } from '@/lib/auth';
 import { Explanation } from './Explanation';
 
 import styles from './Code.module.css';
 
 export default async function Code({ dtc, className }: { dtc: Dtc | null; className?: string }) {
   if (!dtc) return notFound();
+  const session = await getServerSession(authOptions);
 
   const codeStyle: Record<Systems, CSSProperties> = {
     Powertrain: { '--color-code': 'var(--color-code-p)' } as CSSProperties,
@@ -29,34 +33,40 @@ export default async function Code({ dtc, className }: { dtc: Dtc | null; classN
       </div>
       <ul className={styles.list}>
         <li>
-          <span>
+          <div>
             <Car /> Subsystem
-          </span>
-          <span>
+          </div>
+          <div>
             {dtc.systemName} ({dtc.systemCode})
-          </span>
+          </div>
         </li>
         {dtc.codeLocation && (
           <li>
-            <span>
+            <div>
               <LocateFixed /> Location
-            </span>
-            <span>{dtc.codeLocation}</span>
+            </div>
+            <div>{dtc.codeLocation}</div>
           </li>
         )}
         <li>
-          <span>
+          <div>
             <Book /> Description
-          </span>
-          <span>{dtc.codeDescription}</span>
+          </div>
+          <div>{dtc.codeDescription}</div>
         </li>
         <li>
-          <span>
-            <BrainCog /> AI Explanation
-          </span>
-          <span>
-            <Explanation code={dtc.codeTitle} description={dtc.codeDescription} />
-          </span>
+          <div className={styles.aiTitle}>
+            <span>
+              <BrainCog /> AI Explanation
+            </span>
+            {session && (
+              <form action={resetGPTData.bind(null, dtc.codeTitle)}>
+                <button type="submit">Reset</button>
+              </form>
+            )}
+          </div>
+
+          <Explanation code={dtc.codeTitle} description={dtc.codeDescription} />
         </li>
       </ul>
     </div>

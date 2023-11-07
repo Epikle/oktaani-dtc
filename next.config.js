@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverActions: true,
+  async redirects() {
+    return [{ source: '/login', destination: '/api/auth/signin', permanent: true }];
   },
 };
 

@@ -55,7 +55,7 @@ export function Explanation({ code, description }: { code: string; description: 
 
   return (
     <div className={styles.ai}>
-      <p>{data} </p>
+      <p>{data}</p>
       <Disclaimer />
     </div>
   );

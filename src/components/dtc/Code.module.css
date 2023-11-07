@@ -42,7 +42,7 @@
   margin-block: 1rem;
 }
 
-.list li span:first-child {
+.list li div:first-child {
   font-weight: bold;
   border-bottom: 1px dotted gray;
   display: flex;
@@ -51,9 +51,35 @@
   padding-block: 0.25rem;
 }
 
-.list li span:last-child {
+.list li div:last-of-type {
   font-size: 0.9rem;
   padding-top: 0.25rem;
+  font-weight: normal;
+}
+
+.aiTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.aiTitle span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.aiTitle button {
+  background-color: var(--color-primary-blue);
+  border: 1px solid var(--color-primary-blue);
+  border-radius: 100vw;
+  padding: 0 1rem;
+  font-weight: normal;
+}
+
+.aiTitle button:hover {
+  cursor: pointer;
+  background-color: var(--color-primary-white);
 }
 
 @media (max-width: 768px) {
