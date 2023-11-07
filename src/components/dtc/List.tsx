@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import { useIntersection } from '@mantine/hooks';
 
 import Item from './Item';
@@ -17,12 +17,13 @@ export default function List({ search }: { search?: string }) {
     queryFn: async ({ pageParam }) => {
       const params = new URLSearchParams([
         ...(search ? [['s', search]] : []),
-        ...(pageParam ? [['c', pageParam]] : []),
+        ...(pageParam ? [['c', pageParam.toString()]] : []),
       ]);
       return await (await fetch(`/api?${params.toString()}`)).json();
     },
+    initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage?.nextCursor,
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   });
   const dtcData = data?.pages.flatMap((page) => page.dtcData);
   const lastDtcRef = useRef<HTMLDivElement>(null);
