@@ -15,10 +15,9 @@ export default function List({ search }: { search?: string }) {
   const { data, isLoading, isError, fetchNextPage } = useInfiniteQuery({
     queryKey: ['dtcList', search],
     queryFn: async ({ pageParam }) => {
-      const params = new URLSearchParams([
-        ...(search ? [['s', search]] : []),
-        ...(pageParam ? [['c', pageParam.toString()]] : []),
-      ]);
+      const params = new URLSearchParams();
+      if (search) params.append('s', search);
+      if (pageParam) params.append('c', pageParam.toString());
       return await (await fetch(`/api?${params.toString()}`)).json();
     },
     initialPageParam: 0,
