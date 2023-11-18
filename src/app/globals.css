@@ -53,6 +53,10 @@ main h1:after {
   color: var(--color-primary-blue);
 }
 
+main a {
+  color: white;
+}
+
 @media (max-width: 600px) {
   main h1 {
     font-size: 1.5rem;
