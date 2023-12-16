@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
           ? {
               OR: searchTerms.map((term) => ({
                 codeTitle: {
-                  equals: term,
+                  equals: term.toUpperCase(),
                 },
               })),
             }
