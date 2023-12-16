@@ -13,6 +13,9 @@ const validData = seedData.map((dtc) => ({
 }));
 
 async function main() {
+  const currentData = await prisma.dtc.findMany();
+  if (currentData.length > 0) return;
+
   for (const dtc of validData) {
     await prisma.dtc.upsert({
       where: { codeTitle: dtc.codeTitle },
