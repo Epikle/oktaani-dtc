@@ -7,6 +7,7 @@ import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Providers from '../components/Providers';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'oktaaniDTC',
@@ -20,7 +21,9 @@ export default function RootLayout({ children, modal }: { children: React.ReactN
       <body>
         <Providers>
           {modal}
-          <Header />
+          <Suspense>
+            <Header />
+          </Suspense>
           <main>
             <h1>Diagnostic Trouble Codes</h1>
             {children}
