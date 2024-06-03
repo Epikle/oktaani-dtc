@@ -38,12 +38,12 @@ export default function Header() {
       <div>
         <Link href="/">
           <Image
-            src="/logo.svg"
+            src="/oktaani_dtc.svg"
             alt="oktaaniDTC Logo"
             className={styles.logo}
-            width="226"
-            height="32"
-            priority={true}
+            width="250"
+            height="60"
+            priority
           />
         </Link>
       </div>
